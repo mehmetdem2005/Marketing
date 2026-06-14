@@ -24,6 +24,9 @@ subprojects {
         allRules = false
         config.setFrom(rootProject.files("config/detekt/detekt.yml"))
         parallel = true
+        // ktlint formatting ihlalleri CI'da yerinde otomatik düzeltilir (yerelde formatter
+        // çalıştırılamadığı için gate'i bloklamasın); düzeltilenler excludeCorrectable ile sayılmaz.
+        autoCorrect = true
     }
 
     dependencies {

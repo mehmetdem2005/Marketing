@@ -1,0 +1,44 @@
+---
+type: infra-resources
+date: 2026-06-14
+tags: [altyapi, supabase, render, secrets]
+ai-first: true
+---
+
+# Köyden — Altyapı & Kaynaklar
+
+## For future Claude
+Köyden'in canlı bulut kaynakları ve sır yönetiminin tek kaydı. Supabase projesi
+provisioned (Android doğrudan buna bağlanır — ADR-002/010). **Sır DEĞERLERİ bu repoda
+asla bulunmaz**; yalnız non-secret tanımlayıcılar (proje ref, URL) + sırların *nerede*
+durduğu yazılır. Yeni kaynak/karar → burayı güncelle + ADR yaz (self-rewriting; çelişki → supersedes).
+
+## Supabase — Köyden projesi (CANLI)
+- **Proje adı:** `koyden`
+- **Ref / Project ID:** `yampwgdlqncdgwjslige`  *(public tanımlayıcı)*
+- **URL:** `https://yampwgdlqncdgwjslige.supabase.co`  *(public; istemciye gömülür)*
+- **Bölge:** `eu-central-1` (Frankfurt) · **Org:** `mehmetdem2005's Org` (`ghdmtojktewtwcyiazev`)
+- **Plan:** free · **Durum:** ACTIVE_HEALTHY (2026-06-14)
+- **Şema:** `0001_init` uygulandı → `profiles` (PII) + `addresses` + RLS (deny-by-default)
+  + `handle_new_user` trigger + `user_role` enum. (Kaynak: `marketing-2/supabase/migrations/`)
+- **Anahtarlar (anon / service_role / db_pass):** repoda DEĞİL. Container `/home/user/.secrets/`
+  altında (oturumluk) + kalıcı kullanım için **CI secret / local.properties**'e girilir
+  (`KOYDEN_SUPABASE_URL`, `KOYDEN_SUPABASE_ANON_KEY`). service_role yalnız sunucu/Edge tarafında.
+
+## Render
+- **Hesap:** My Workspace (`tea-...`, mehmetdem2005). Köyden için **henüz servis oluşturulmadı.**
+- **Durum:** Sunucu tarafı ihtiyacı (Stripe webhook / zamanlı iş / admin) **Supabase Edge Functions**
+  ile karşılanabilir (mevcut `marketing-2/supabase/functions`). Ayrı **Render Node servisi**
+  opsiyonu açık — backend kapsamı netleşince karar (ADR ile). Android mimarisi DEĞİŞMEDİ.
+
+## Sır yönetimi (ISO 27001/27002 · ADR-005)
+- Erişim token'ları (Whenly'den, kullanıcı izniyle): `render.key`, `SUPABASE_ACCESS_TOKEN`,
+  `GITHUB_TOKEN` → yalnız `/home/user/.secrets/` (repo dışı). **Kullanıcı işi bitince revoke edecek.**
+- Whenly'nin diğer prod sırları indirilmedi/silindi (gereksiz yayılım yok). Whenly kaynaklarına
+  yalnız **okuma** yapıldı; hiçbir Whenly kaynağı değiştirilmedi.
+- Kural: hiçbir sır **değeri** git'e girmez (gitleaks kapısı + bu disiplin).
+
+## Açık işler
+- [ ] Köyden Supabase URL/anon → CI secret + local.properties (auth'un çalışması için).
+- [ ] Sunucu tarafı kararı: Supabase Edge vs Render Node (kapsam netleşince, ADR).
+- [ ] Kullanıcı: Whenly'den alınan token'ları revoke et.

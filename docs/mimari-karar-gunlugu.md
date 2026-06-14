@@ -15,6 +15,7 @@
 - ADR-008 — Multi-repo yapı (marketing = app+docs, marketing-2 = Supabase)
 - ADR-009 — Tasarım sistemi: motion token sistemi + bileşen kütüphanesi + 4-durum scaffold
 - ADR-010 — Kimlik: Supabase Auth (e-posta/şifre + Google ID token / Credential Manager)
+- ADR-011 — Altyapı provisioning: Köyden Supabase projesi + sır yönetimi + sunucu-tier kararı (açık)
 
 ---
 
@@ -121,7 +122,29 @@
 - **Değerlendirilen alternatifler:** Yalnız e-posta/şifre (reddedildi: onboarding hızı);
   Firebase Auth (reddedildi: Supabase ile tek backend tercihi — ADR-002).
 
+## ADR-011 — Altyapı provisioning: Köyden Supabase projesi + sır yönetimi + sunucu-tier (açık)
+- **Durum:** Kabul (provisioning) · sunucu-tier kararı AÇIK · TOGAF Phase F/G · ISO 27001/27002
+- **Bağlam:** Android uygulaması (ADR-001/002) çalışan bir Supabase projesine ihtiyaç duyuyor
+  (auth/DB doğrudan Supabase). Kullanıcı ayrıca "bir sunucu gerekiyor" diyerek Render'ı gündeme getirdi.
+- **Karar:**
+  - **Supabase projesi `koyden`** oluşturuldu (ref `yampwgdlqncdgwjslige`, eu-central-1, free).
+    `0001_init` şeması uygulandı (profiles/PII + addresses + RLS + handle_new_user). Detay:
+    `docs/altyapi-kaynaklar.md`.
+  - **Sır yönetimi:** Whenly'nin Render'inden (kullanıcı izni + sağladığı Render key ile) yalnız
+    **access token'lar** alındı (`SUPABASE_ACCESS_TOKEN`, `GITHUB_TOKEN`) ve Render key; tümü
+    container `/home/user/.secrets/` (repo dışı). Whenly kaynaklarına yalnız okuma; hiçbir Whenly
+    sırrı/değeri repoya yazılmadı; diğer Whenly sırlarının yerel kopyaları silindi. Kullanıcı
+    token'ları sonra revoke edecek. Sır **değeri** asla git'e girmez (ADR-005).
+  - **Sunucu-tier (AÇIK):** server-side ihtiyaç önce **Supabase Edge Functions** ile karşılanır
+    (mevcut `marketing-2`); ayrı **Render Node servisi** opsiyonu backend kapsamı netleşince ayrı
+    ADR ile karara bağlanır. **Android mimarisi değişmedi.**
+- **Sonuçlar:** Android auth artık gerçek bir Supabase backend'ine bağlanabilir (URL/anon → CI/local).
+  Render servisi henüz oluşturulmadı (kapsam beklemede).
+- **Değerlendirilen alternatifler:** Whenly'nin mevcut Supabase projesini yeniden kullanmak
+  (reddedildi: iki ürünün verisini karıştırır); frontend+backend'i Render'e taşımak (reddedildi:
+  Android korunuyor — kullanıcı onayı).
+
 ---
 
-**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..010 kilitlenen
+**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..011 kilitlenen
 kararları belgeler · supersedes mekanizması tanımlı (henüz supersede edilen karar yok).

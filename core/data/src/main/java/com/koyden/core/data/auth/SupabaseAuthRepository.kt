@@ -85,5 +85,5 @@ class SupabaseAuthRepository @Inject constructor(
         }
 
     private fun missingUser(): Nothing =
-        throw IllegalStateException("Auth işlemi sonrası kullanıcı oturumu alınamadı")
+        error("Auth işlemi sonrası kullanıcı oturumu alınamadı")
 }

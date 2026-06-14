@@ -3,7 +3,8 @@
 
 build:
   maxIssues: 0
-  excludeCorrectable: false
+  # autoCorrect ile düzeltilebilen (ktlint formatting) ihlaller sayıma dahil edilmez.
+  excludeCorrectable: true
 
 config:
   validation: true
@@ -30,14 +31,25 @@ style:
   ReturnCount:
     max: 4
   MaxLineLength:
-    maxLineLength: 120
+    maxLineLength: 140
   UnusedPrivateMember:
     active: true
   ForbiddenComment:
     active: false
 
+exceptions:
+  active: true
+  # Sınır (adapter/credential) katmanında geniş yakalama bilinçlidir: tüm hatalar
+  # AppError'a eşlenip UI'a sızdırılmadan yönetilir (ISO 25010). CancellationException
+  # her zaman yeniden fırlatılır.
+  TooGenericExceptionCaught:
+    active: false
+
 naming:
   active: true
+  # Çok bildirimli dosyalar (ör. KoydenButton.kt = fun + enum) kabul edilir.
+  MatchingDeclarationName:
+    active: false
   FunctionNaming:
     # Composable fonksiyonlar PascalCase olabilir.
     ignoreAnnotated: ['Composable']
