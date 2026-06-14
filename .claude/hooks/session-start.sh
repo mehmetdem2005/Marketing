@@ -77,4 +77,11 @@ fi
 # Bağlam enjeksiyonu: skill yönlendirme rehberi (stdout → oturum bağlamı)
 ROUTING="${CLAUDE_PROJECT_DIR:-.}/.claude/skill-routing.md"
 if [ -f "$ROUTING" ]; then cat "$ROUTING"; fi
+
+# Bağlam enjeksiyonu: Kurumsal Süreç & Çalışma Standardı planı (her oturumda okunur)
+PLAN="${CLAUDE_PROJECT_DIR:-.}/docs/kurumsal-surec-ve-calisma-standardi.md"
+if [ -f "$PLAN" ]; then
+  printf '\n══════════ KURUMSAL ÇALIŞMA STANDARDI (her işte uy) ══════════\n'
+  cat "$PLAN"
+fi
 exit 0
