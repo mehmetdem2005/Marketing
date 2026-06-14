@@ -52,11 +52,11 @@ fun QuantityStepper(
             Icon(Icons.Filled.Remove, contentDescription = "Adedi azalt")
         }
 
+        val quantityAnimMs = motionDuration(MotionTokens.DurationQuick)
         AnimatedContent(
             targetState = quantity,
             transitionSpec = {
-                val d = motionDuration(MotionTokens.DurationQuick)
-                (fadeIn(tween(d)) togetherWith fadeOut(tween(d)))
+                fadeIn(tween(quantityAnimMs)) togetherWith fadeOut(tween(quantityAnimMs))
             },
             label = "quantityValue",
         ) { value ->

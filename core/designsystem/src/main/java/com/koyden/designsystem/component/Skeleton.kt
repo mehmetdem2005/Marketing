@@ -49,7 +49,7 @@ fun Skeleton(
             ),
             label = "skeletonX",
         )
-        Brush.linearGradient(
+        Brush.horizontalGradient(
             colors = listOf(base, highlight, base),
             startX = x,
             endX = x + 300f,

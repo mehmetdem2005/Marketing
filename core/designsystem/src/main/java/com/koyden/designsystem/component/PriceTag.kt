@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.dp
 import java.text.NumberFormat
 import java.util.Locale
 
