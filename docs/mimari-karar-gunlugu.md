@@ -14,6 +14,7 @@
 - ADR-007 — Ödeme: Stripe yönlendirme, tahsilat ertelendi (PaymentGateway portu)
 - ADR-008 — Multi-repo yapı (marketing = app+docs, marketing-2 = Supabase)
 - ADR-009 — Tasarım sistemi: motion token sistemi + bileşen kütüphanesi + 4-durum scaffold
+- ADR-010 — Kimlik: Supabase Auth (e-posta/şifre + Google ID token / Credential Manager)
 
 ---
 
@@ -97,7 +98,30 @@
 - **Değerlendirilen alternatifler:** Ekran-içi ad-hoc bileşen (reddedildi: tutarsızlık);
   motion'ı doğrudan M3 varsayılanlarına bırakmak (reddedildi: marka kimliği + reduce-motion kontrolü).
 
+## ADR-010 — Kimlik: Supabase Auth (e-posta/şifre + Google ID token / Credential Manager)
+- **Durum:** Kabul · TOGAF Phase C/D (Artımlı) · P5/P6 (güvenlik) · ISO 27001/27002 · ADR-002/004/005 ile uyumlu
+- **Bağlam:** Faz 1; kullanıcı girişi gerekiyor. Hedef kitle için hem e-posta/şifre hem de hızlı
+  onboarding (Google) isteniyor (ürün kararı). Sağlayıcı kilidi azaltılmalı; sırlar repoda olmamalı.
+- **Karar:**
+  - **Port:** `:core:domain` `auth/AuthRepository` (saf Kotlin) + use-case'ler (SignIn/SignUp/
+    Google/SignOut/ObserveAuthState) + istemci doğrulaması (`CredentialValidation`). Domain'e
+    Supabase tipi sızmaz.
+  - **Adapter:** `:core:data` `SupabaseAuthRepository` (supabase auth-kt). Hatalar `DataResult`
+    + `AppError`'a eşlenir; **ham hata/sağlayıcı detayı UI'a taşınmaz**. `UserInfo`→`AuthUser` map.
+  - **Google:** Credential Manager + Google ID (`:feature:auth` `GoogleCredentialClient`);
+    rastgele **nonce** (rawNonce istemci, SHA-256 hash Google'a) ile replay koruması; idToken
+    Supabase `signInWith(IDToken)`'a verilir.
+  - **Sırlar (ADR-005):** `SUPABASE_URL/ANON_KEY`, `GOOGLE_WEB_CLIENT_ID` → app BuildConfig
+    (local.properties/CI), DI ile `SupabaseConfig`/`AuthConfig` olarak sağlanır. Anon key açık,
+    güvenlik **RLS** ile.
+  - **UI:** `:feature:auth` LoginScreen/RegisterScreen (designsystem bileşenleri + 4-durum alt
+    durumları) + auth nav grafı; başarılı girişte home'a geçiş.
+- **Sonuçlar:** Oturum kalıcılığı auth-kt varsayılanı; Faz 2'de ObserveAuthState ile otomatik
+  başlangıç yönlendirmesi + profil/RLS. Sağlayıcı portla soyutlandığı için değiştirilebilir.
+- **Değerlendirilen alternatifler:** Yalnız e-posta/şifre (reddedildi: onboarding hızı);
+  Firebase Auth (reddedildi: Supabase ile tek backend tercihi — ADR-002).
+
 ---
 
-**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..009 kilitlenen
+**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..010 kilitlenen
 kararları belgeler · supersedes mekanizması tanımlı (henüz supersede edilen karar yok).

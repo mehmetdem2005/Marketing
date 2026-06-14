@@ -13,22 +13,36 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.koyden.feature.auth.navigation.AuthRoutes
+import com.koyden.feature.auth.navigation.authGraph
+
+private const val HOME_ROUTE = "home"
 
 /**
  * Uygulama navigasyon iskeleti.
  *
- * Faz 0: tek placeholder hedef. Faz 2+ ile auth/home/catalog/cart/order/seller/profile
- * grafları type-safe rotalarla buraya eklenecek (ADR-002 navigasyon mimarisi).
+ * Faz 1: auth grafı (giriş/kayıt) + home placeholder. Başlangıç auth'tur; giriş başarılı
+ * olunca home'a geçilir ve auth yığından temizlenir. Faz 2+ ile oturum durumuna göre
+ * (ObserveAuthState) otomatik başlangıç + catalog/cart/order/seller/profile grafları eklenecek.
  */
 @Composable
 fun KoydenNavHost(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = "home",
+        startDestination = AuthRoutes.GRAPH,
         modifier = modifier,
     ) {
-        composable("home") {
+        authGraph(
+            navController = navController,
+            onSignedIn = {
+                navController.navigate(HOME_ROUTE) {
+                    popUpTo(AuthRoutes.GRAPH) { inclusive = true }
+                    launchSingleTop = true
+                }
+            },
+        )
+        composable(HOME_ROUTE) {
             HomePlaceholder()
         }
     }

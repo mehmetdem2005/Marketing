@@ -29,6 +29,12 @@ android {
             ?: System.getenv("KOYDEN_SUPABASE_ANON_KEY") ?: ""
         buildConfigField("String", "SUPABASE_URL", "\"$supabaseUrl\"")
         buildConfigField("String", "SUPABASE_ANON_KEY", "\"$supabaseAnonKey\"")
+
+        // Google OAuth "Web" istemci kimliği (Supabase Google sağlayıcısıyla aynı). Sır değil
+        // ama repoda tutulmaz; local.properties / CI'dan gelir.
+        val googleWebClientId: String = providers.gradleProperty("KOYDEN_GOOGLE_WEB_CLIENT_ID").orNull
+            ?: System.getenv("KOYDEN_GOOGLE_WEB_CLIENT_ID") ?: ""
+        buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"$googleWebClientId\"")
     }
 
     buildTypes {
