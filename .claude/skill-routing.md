@@ -1,8 +1,19 @@
 # Skill Yönlendirme — Köyden
 
 > Bu dosya her oturum başında (SessionStart hook) bağlama enjekte edilir.
-> İş türüne göre İLGİLİ skill'i Skill aracıyla yükle; gereksiz hepsini yükleme.
-> **UI işinde DÖRTLÜ zorunlu:** design-standards + web-design-advanced + ui-ux-advanced + motion-design.
+
+## ⛔ ZORUNLU — HER OTURUMDA YÜKLE (Skill aracıyla, iş türünden bağımsız)
+Bu oturumda **ilk iş** olarak, kullanıcının verdiği **3 Obsidian skill'ini** Skill aracıyla yükle ve
+bilgi/hafıza modu olarak aktif tut:
+1. **obsidian-second-brain** — kendini-yeniden-yazan bilgi tabanı (karar/öğrenilen kaydet, çelişki uzlaştır).
+2. **llm-wiki** — Karpathy ingest/query/lint zihinsel modeli.
+3. **qmd** + **obsidian-mind** `/om-*` komutları & agent'ları (oturum başlat/bitir, bilgi tabanı bakımı).
+
+Kullanım disiplini: işe başlamadan bilgi tabanını (docs/ EA·ADR + altyapi-kaynaklar) bunlarla tara;
+konuşma kalıcı değer ürettiğinde PROAKTİF kaydet; iş sonunda ADR/log güncelle (supersedes).
+
+> Diğer skill'ler **iş türüne göre** yüklenir (aşağıdaki tablo). **UI işinde DÖRTLÜ zorunlu:**
+> design-standards + web-design-advanced + ui-ux-advanced + motion-design.
 
 ## Hafıza & bilgi yönetimi (kalıcı "ikinci beyin")
 - **obsidian-second-brain** — bilgi tabanını kendini-yeniden-yazan ikinci beyin gibi yönet: karar/öğrenilen/araştırma kaydet, çelişkileri uzlaştır. Konuşma kalıcı değer ürettiğinde PROAKTİF kullan. Komutlar: `/obsidian-ingest`, `/obsidian-decide`, `/obsidian-adr`, `/obsidian-health`, `/obsidian-reconcile`, `/obsidian-save`, `/obsidian-architect`…

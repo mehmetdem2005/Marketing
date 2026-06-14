@@ -75,6 +75,9 @@ else
 fi
 
 # Bağlam enjeksiyonu: skill yönlendirme rehberi (stdout → oturum bağlamı)
+printf '%s\n' "⛔ HER OTURUMDA ZORUNLU: Skill aracıyla şu 3 Obsidian skill'ini yükle ve aktif tut →"
+printf '%s\n' "   1) obsidian-second-brain  2) llm-wiki  3) qmd + obsidian-mind (/om-* komut & agent'lar)"
+printf '%s\n' "   İş türüne göre diğerleri: UI→design-standards+web-design-advanced+ui-ux-advanced+motion-design."
 ROUTING="${CLAUDE_PROJECT_DIR:-.}/.claude/skill-routing.md"
 if [ -f "$ROUTING" ]; then cat "$ROUTING"; fi
 
