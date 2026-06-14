@@ -1,0 +1,81 @@
+# Köyden — Mimari Karar Günlüğü (ADR)
+
+> Her anlamlı mimari karar burada kayıt altına alınır. Çelişen kararlar **"supersedes"**
+> ile uzlaştırılır (self-rewriting knowledge base). Format: Durum · Bağlam · Karar ·
+> Sonuçlar · (Mitigasyonlar) · Değerlendirilen alternatifler.
+
+## İndeks
+- ADR-001 — Native Android (Kotlin + Jetpack Compose)
+- ADR-002 — Backend: doğrudan Supabase (Auth + Postgres/RLS + Storage)
+- ADR-003 — Çok-modüllü Gradle + version catalog + üç katmanlı kalite kapısı
+- ADR-004 — Clean Architecture + MVVM (tek-yönlü state / FSM), DI: Hilt
+- ADR-005 — Güvenlik-öncelikli: RLS deny-by-default + sır yönetimi + gitleaks
+- ADR-006 — PII zon ayrımı & veri minimizasyonu
+- ADR-007 — Ödeme: Stripe yönlendirme, tahsilat ertelendi (PaymentGateway portu)
+- ADR-008 — Multi-repo yapı (marketing = app+docs, marketing-2 = Supabase)
+
+---
+
+## ADR-001 — Native Android (Kotlin + Jetpack Compose)
+- **Durum:** Kabul · TOGAF Phase D (Yeniden-mimari — stack seçimi)
+- **Bağlam:** Trendyol kalitesinde, daraltılmış nişte (köy/doğal ürünler) bir pazaryeri isteniyor. Cross-platform yerine native Android tercih edildi.
+- **Karar:** **Kotlin + Jetpack Compose (Material 3)** ile native Android. minSdk 24, compileSdk 35.
+- **Sonuçlar:** En iyi yerel performans/erişilebilirlik; tek platform odağı; Compose ile hızlı UI.
+- **Değerlendirilen alternatifler:** React Native/Expo (mse-auto stack'i — reddedildi: native istendi), Flutter (reddedildi: ekip/native tercih).
+
+## ADR-002 — Backend: doğrudan Supabase
+- **Durum:** Kabul · TOGAF Phase C/D (Yeniden-mimari) · P3 (Buy>Build)
+- **Bağlam:** Kimlik, veri, depolama, realtime gibi commodity yeteneklere ihtiyaç var; özel sunucu bakım maliyeti istenmiyor.
+- **Karar:** **Supabase**: GoTrue (Auth), Postgres + **RLS**, Storage, Realtime, Edge Functions. İstemci supabase-kt SDK ile **doğrudan** erişir; güvenlik RLS ile.
+- **Sonuçlar:** Hızlı geliştirme; güvenlik veri katmanında (RLS); anon key herkese açık (RLS ile güvenli).
+- **Mitigasyonlar:** Sağlayıcı kilidi → repository/port soyutlaması (P7); service-role yalnız Edge'de.
+- **Değerlendirilen alternatifler:** Özel backend (Hono/Ktor) — reddedildi (P3, P9); Firebase — reddedildi (Postgres/RLS/SQL tercihi).
+
+## ADR-003 — Çok-modüllü Gradle + version catalog + üç katmanlı kalite kapısı
+- **Durum:** Kabul · TOGAF Phase G (Artımlı)
+- **Bağlam:** Kurumsal kalite, ölçeklenebilir build ve otomatik standart zorlama gerekiyor.
+- **Karar:** Çok-modüllü Gradle (Kotlin DSL) + `gradle/libs.versions.toml`. Kalite kapısı üç katman: **lefthook** (pre-commit: gitleaks + detekt, pre-push: test), **GitHub Actions CI** (gitleaks + detekt + lint + test + assemble), **Claude Stop hook** (`.claude/hooks/standards-gate.sh`).
+- **Sonuçlar:** Hızlı artımlı build; standartlar makinece zorlanır (hafıza değil harness).
+- **Mitigasyonlar:** Convention plugin/buildSrc şimdilik yok (P9 — gerektiğinde ADR ile eklenecek; modül build dosyaları kısa tutuldu).
+- **Değerlendirilen alternatifler:** Tek-modül (reddedildi: ölçek/derleme); buildSrc convention plugin (ertelendi: P9).
+
+## ADR-004 — Clean Architecture + MVVM (tek-yönlü state / FSM), DI: Hilt
+- **Durum:** Kabul · TOGAF Phase C (Artımlı) · P4
+- **Bağlam:** Test edilebilir, sağlayıcıdan bağımsız, sürdürülebilir bir uygulama katmanı gerekiyor.
+- **Karar:** Katmanlar: UI(Compose) → ViewModel(sealed UiState/FSM) → UseCase → Repository **port** (domain, saf Kotlin) → Repository impl (data). DI **Hilt**, async **Coroutines/Flow**.
+- **Sonuçlar:** Tek-yönlü bağımlılık; domain saf; UI test edilebilir.
+- **Değerlendirilen alternatifler:** MVI kütüphanesi (ertelendi: sade sealed UiState yeterli, P9), elle DI (reddedildi).
+
+## ADR-005 — Güvenlik-öncelikli: RLS deny-by-default + sır yönetimi
+- **Durum:** Kabul · TOGAF Phase G (Artımlı) · P5
+- **Bağlam:** Pazaryeri kişisel/finansal veri içerir; ihlal maliyeti yüksek.
+- **Karar:** Her tabloda RLS etkin + **deny-by-default**; sır **kodda yok** (local.properties/CI secret → BuildConfig; service-role yalnız Edge env); token EncryptedSharedPreferences/Keystore; yalnız HTTPS (`usesCleartextTraffic=false`); gitleaks taraması üç katmanda. OWASP MASVS gözetilir.
+- **Sonuçlar:** Savunma derinliği; en az ayrıcalık.
+- **Değerlendirilen alternatifler:** Uygulama-katmanı yetkilendirme tek başına (reddedildi: RLS veri katmanında zorunlu).
+
+## ADR-006 — PII zon ayrımı & veri minimizasyonu
+- **Durum:** Kabul · TOGAF Phase C (Artımlı) · P1
+- **Bağlam:** KVKK/GDPR uyumu ve gizlilik-by-design gerekiyor.
+- **Karar:** Veri iki zona ayrılır: **PII** (profiles, addresses, favorites, carts, orders, notifications, payment_intents) ve **paylaşılan** (categories, products, stores public, reviews). PII yalnız sahibi + yetkili rol erişir; minimum veri toplanır.
+- **Sonuçlar:** Sızıntı yüzeyi küçük; uyum kolaylaşır.
+- **Değerlendirilen alternatifler:** Tek-zon + yalnız uygulama filtresi (reddedildi: risk).
+
+## ADR-007 — Ödeme: Stripe yönlendirme, tahsilat ertelendi
+- **Durum:** Kabul · TOGAF Phase C (Artımlı) · P7
+- **Bağlam:** İlk sürümde gerçek tahsilat istenmiyor; ödeme sağlayıcısı değiştirilebilir kalmalı.
+- **Karar:** Ödeme `PaymentGateway` portu arkasında; Stripe adapter ile **yalnız yönlendirme** (Checkout/redirect placeholder), **tutar tahsil edilmez**. Stripe secret yalnız Edge Function env'inde.
+- **Sonuçlar:** İleride tahsilat açılabilir; sağlayıcı kilidi düşük.
+- **Mitigasyonlar:** Gerçek tahsilat öncesi PCI/uyum gözden geçirmesi (ayrı ADR).
+- **Değerlendirilen alternatifler:** Doğrudan istemci-tarafı tahsilat (reddedildi: güvenlik/uyum).
+
+## ADR-008 — Multi-repo yapı
+- **Durum:** Kabul · TOGAF Phase F (Artımlı)
+- **Bağlam:** Uygulama ve backend bağımsız yaşam döngülerine sahip; sorumluluk ayrımı isteniyor.
+- **Karar:** **`marketing`** = Android uygulaması + `docs/` (EA/ADR/ISO/tasarım/güvenlik). **`marketing-2`** = Supabase backend/Edge (`supabase/` CLI: migrations, RLS, RPC, Edge, seed). **`mse-auto`** yalnız okunur referans — kod kopyalanmaz.
+- **Sonuçlar:** Net sorumluluk; bağımsız CI/deploy.
+- **Değerlendirilen alternatifler:** Mono-repo (ertelendi: ekip/araç tercihi multi-repo).
+
+---
+
+**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..008 kilitlenen
+kararları belgeler · supersedes mekanizması tanımlı (henüz supersede edilen karar yok).

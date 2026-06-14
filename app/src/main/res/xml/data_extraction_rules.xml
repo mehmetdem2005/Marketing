@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cloud backup ve device-transfer için veri çıkarma kuralları (Android 12+). -->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="sharedpref" path="koyden_secure_prefs.xml" />
+        <exclude domain="sharedpref" path="koyden_auth.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="sharedpref" path="koyden_secure_prefs.xml" />
+        <exclude domain="sharedpref" path="koyden_auth.xml" />
+    </device-transfer>
+</data-extraction-rules>

@@ -1,0 +1,21 @@
+# Git hook'ları (ADR-003). Kurulum: `lefthook install` (veya `npx lefthook install`).
+# Üç katmanlı kapının yerel katmanı; ikinci katman CI, üçüncü katman Stop hook.
+
+pre-commit:
+  parallel: true
+  commands:
+    gitleaks:
+      # Sahnelenen değişikliklerde sır taraması — sır içeren commit'i engeller.
+      run: gitleaks protect --staged --no-banner --redact
+      skip:
+        - merge
+        - rebase
+    detekt:
+      glob: "*.{kt,kts}"
+      # Kotlin stil/kalite/a11y kapısı. Android SDK gerektirir.
+      run: ./gradlew detekt --quiet
+
+pre-push:
+  commands:
+    unit-tests:
+      run: ./gradlew testDebugUnitTest --quiet

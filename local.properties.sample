@@ -1,0 +1,9 @@
+# Örnek yapılandırma — bu dosyayı `local.properties` olarak kopyalayıp doldurun.
+# `local.properties` .gitignore'dadır; sırlar repoya GİRMEZ.
+#
+# Android SDK konumu (kendi makinenizde):
+# sdk.dir=/path/to/Android/sdk
+#
+# Supabase (anon key tasarım gereği herkese açıktır; güvenlik RLS ile):
+KOYDEN_SUPABASE_URL=YOUR_SUPABASE_URL
+KOYDEN_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY

@@ -1,0 +1,10 @@
+[ZORUNLU STANDART HATIRLATICI — her kodlama/UI işinde uygula; footer'a YALNIZ fiilen uygulananı yaz]
+- Mimari: Clean Architecture + MVVM (UDF) · domain saf Kotlin (port'lar) · data = supabase-kt adapter · tek-yönlü state (sealed UiState/FSM). DI: Hilt. Async: Coroutines/Flow.
+- Tasarım: Material 3 · 8pt grid (LocalSpacing token) · token tek-kaynak (inline renk/dp YOK) · dokunma hedefi ≥48dp · EMOJİ-İKON YASAĞI (lucide/vektör ikon).
+- A11y (WCAG 2.2 AA / ISO 9241): kontrast ≥4.5:1 · görünür odak · her interaktif öğeye contentDescription/semantics · ekran okuyucu sırası · reduce-motion'a saygı (animasyon zorunlu, ama kapatılabilir).
+- 4-durum: her veri ekranı loading/empty/error/content ele alır.
+- Güvenlik (ISO 27001/27002 + OWASP MASVS): RLS deny-by-default · sır KODDA YOK (local.properties/CI secret → BuildConfig; service-role yalnız Edge) · token EncryptedSharedPreferences/Keystore · yalnız HTTPS (cleartext kapalı) · girdi doğrulama · PII minimizasyonu.
+- TOGAF (TAM): ADM taraması + P1–P9 conformance + değişiklik sınıfı (Basitleştirme/Artımlı/Yeniden-mimari) + ADR + EA güncelle. Kanonik: docs/EA-TOGAF-mimari.md, docs/mimari-karar-gunlugu.md.
+- ISO (TAM): 42010 view · 25010 kalite+ölçülebilir NFR · 25012 veri · 27001/27002 güvenlik · 29148 gereksinim · 9241 etkileşim.
+- ÇIKTI: işin sonunda "Standartlar" + TOGAF + ISO raporu. ABARTMA YOK — uygulamadığını "yapıldı" yazma; bilinçli atladığını gerekçesiyle belirt.
+- KAPI (Stop hook): tur biterken gitleaks (sır taraması) temiz; mümkünse detekt (a11y/lint/format) + test temiz olmalı (yoksa harness bitirmeyi engeller). Güvenlik-dokunuşu/büyük diff → /security-review · /code-review.

@@ -1,0 +1,19 @@
+# Köyden gitleaks yapılandırması.
+# Varsayılan kural setini temel al; depo-özel istisnaları buraya ekle.
+title = "Koyden gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Yanlış-pozitif önleme"
+# Supabase ANON key tasarım gereği herkese açıktır (güvenlik RLS ile sağlanır),
+# ancak yine de repoda saklanmaz; örnek/şablon dosyalarındaki placeholder'lar hariç tutulur.
+paths = [
+  '''local\.properties\.sample''',
+  '''.*\.example$''',
+]
+regexes = [
+  '''YOUR_SUPABASE_URL''',
+  '''YOUR_SUPABASE_ANON_KEY''',
+]

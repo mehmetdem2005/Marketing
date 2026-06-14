@@ -1,0 +1,28 @@
+# Gradle / Android
+.gradle/
+build/
+**/build/
+local.properties
+captures/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Sırlar — repoda ASLA tutulmaz
+local.properties
+keystore.properties
+*.keystore
+*.jks
+secrets.properties
+.env
+.env.*
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+
+# Hook / review imzası
+.claude/.reviewed
