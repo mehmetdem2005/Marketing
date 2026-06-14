@@ -1,22 +1,13 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.jvm)
 }
 
-android {
-    namespace = "com.koyden.core.common"
-    compileSdk = 35
-    defaultConfig { minSdk = 24 }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-}
-
-kotlin {
-    compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
+// core:common saf Kotlin'dir (Android API kullanmaz). kotlin.jvm olarak yayınlanır ki
+// hem :core:domain (kotlin.jvm) hem de Android modülleri (data/designsystem/ui/feature/app)
+// tüketebilsin. (Önceki android.library hali :core:domain ile variant uyumsuzluğu yaratıyordu.)
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
