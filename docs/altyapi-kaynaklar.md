@@ -38,7 +38,14 @@ durduğu yazılır. Yeni kaynak/karar → burayı güncelle + ADR yaz (self-rewr
   yalnız **okuma** yapıldı; hiçbir Whenly kaynağı değiştirilmedi.
 - Kural: hiçbir sır **değeri** git'e girmez (gitleaks kapısı + bu disiplin).
 
+## Durum (2026-06-14)
+- **CI YEŞİL** ✅ (`android-ci.yml`): gitleaks + detekt + lint + test + assembleDebug geçiyor.
+  Faz 1 (tasarım sistemi + Supabase Auth) derleniyor.
+- **Supabase bağlı:** `KOYDEN_SUPABASE_URL` + `KOYDEN_SUPABASE_ANON_KEY` GitHub Actions
+  **variable** olarak tanımlı (anon/URL publishable; gerçek sır değil) → CI build'inde BuildConfig'e
+  geçiyor. service_role yalnız container/.secrets (sunucu/Edge için).
+
 ## Açık işler
-- [ ] Köyden Supabase URL/anon → CI secret + local.properties (auth'un çalışması için).
+- [ ] Yerel geliştirme: `local.properties`'e KOYDEN_SUPABASE_URL/ANON_KEY (CI variable'dan kopyala).
 - [ ] Sunucu tarafı kararı: Supabase Edge vs Render Node (kapsam netleşince, ADR).
-- [ ] Kullanıcı: Whenly'den alınan token'ları revoke et.
+- [ ] Kullanıcı: Whenly'den alınan token'ları (render.key, SUPABASE_ACCESS_TOKEN, GITHUB_TOKEN) revoke et.
