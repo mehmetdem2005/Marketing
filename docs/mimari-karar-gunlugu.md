@@ -13,6 +13,7 @@
 - ADR-006 — PII zon ayrımı & veri minimizasyonu
 - ADR-007 — Ödeme: Stripe yönlendirme, tahsilat ertelendi (PaymentGateway portu)
 - ADR-008 — Multi-repo yapı (marketing = app+docs, marketing-2 = Supabase)
+- ADR-009 — Tasarım sistemi: motion token sistemi + bileşen kütüphanesi + 4-durum scaffold
 
 ---
 
@@ -75,7 +76,28 @@
 - **Sonuçlar:** Net sorumluluk; bağımsız CI/deploy.
 - **Değerlendirilen alternatifler:** Mono-repo (ertelendi: ekip/araç tercihi multi-repo).
 
+## ADR-009 — Tasarım sistemi: motion token sistemi + bileşen kütüphanesi + 4-durum scaffold
+- **Durum:** Kabul · TOGAF Phase C/D (Artımlı) · P3 (tutarlılık) · P8 (erişilebilirlik)
+- **Bağlam:** Faz 1; ekranlar yazılmadan önce tutarlı, erişilebilir, animasyonlu bir bileşen
+  temeli gerekiyor. Sabit `dp`/renk/ms dağılması ve "AI-slop" animasyon riski azaltılmalı.
+- **Karar:**
+  - **Motion token sistemi** (`:core:designsystem` `motion/MotionTokens.kt`): süre paleti
+    (quick150/standard250/emphasized350/large450) + Material 3 easing'leri; marka motion
+    kişiliği "Corporate + sıcak". `rememberReduceMotion()` ile **reduce-motion zorunlu**
+    (ANIMATOR_DURATION_SCALE==0 → süre 0). Ekranlarda sabit ms YASAK.
+  - **Bileşen kütüphanesi** (`:core:designsystem` `component/`): Button, TextField, Card,
+    Chip, Badge (count/status), Rating (vektör yıldız), PriceTag (₺, kuruş tabanlı),
+    QuantityStepper, Skeleton (shimmer), EmptyState, ErrorState, ProductCard (görsel **slot** →
+    designsystem Coil'den bağımsız). Atomic Design; 8pt grid token; emoji-ikon yasağı; ≥48dp.
+  - **4-durum scaffold** (`:core:ui` `state/`): `UiState` (Loading/Empty/Error/Content) +
+    `UiStateScaffold` (reduce-motion'lu crossfade) + `AppError`→Türkçe mesaj eşlemesi
+    (ham hata sızdırılmaz).
+- **Sonuçlar:** Feature ekranları (Faz 2+) bu temeli kullanır; tutarlılık + erişilebilirlik
+  + motion garanti. designsystem görüntü kütüphanesinden bağımsız (slot deseni).
+- **Değerlendirilen alternatifler:** Ekran-içi ad-hoc bileşen (reddedildi: tutarsızlık);
+  motion'ı doğrudan M3 varsayılanlarına bırakmak (reddedildi: marka kimliği + reduce-motion kontrolü).
+
 ---
 
-**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..008 kilitlenen
+**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..009 kilitlenen
 kararları belgeler · supersedes mekanizması tanımlı (henüz supersede edilen karar yok).

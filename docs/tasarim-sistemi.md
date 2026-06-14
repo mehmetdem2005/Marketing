@@ -29,12 +29,18 @@ Her veri ekranı: **loading / empty / error / content**. Ortak scaffold'lar `:co
 Compose animasyonları (token'lı süre/easing); stagger; reduce-motion'a saygı.
 "Animasyon yok = iş bitmemiş."
 
-## Bileşen Kütüphanesi (Faz 1 hedefi)
-Button, Card, TextField, Chip, Badge, Rating, Skeleton, ProductCard, PriceTag,
-QuantityStepper, EmptyState, ErrorState, BottomSheet, Snackbar.
+## Bileşen Kütüphanesi (Faz 1 — TESLİM)
+`:core:designsystem` `component/`: **Button** (press micro-etkileşim, loading), **TextField**
+(hata/semantics), **Card**, **FilterChip**, **Badge** (count/status), **Rating** (vektör yıldız),
+**PriceTag** (₺, kuruş tabanlı), **QuantityStepper** (sınırlı, animasyonlu), **Skeleton** (shimmer),
+**EmptyState**, **ErrorState**, **ProductCard** (görsel slot'lu).
+Motion: `motion/MotionTokens.kt` (+ `rememberReduceMotion`). 4-durum: `:core:ui` `state/`
+(`UiState` + `UiStateScaffold` + `AppError`→Türkçe mesaj).
+Sonraki (Faz 2+): BottomSheet/Snackbar sarmalayıcıları, marka fontu (self-host),
+kontrast token denetimi (otomatik test).
 
 ---
 
 **Standartlar:** Atomic Design · Material 3 · 8pt grid · WCAG 2.2 AA / ISO 9241 ·
-token tek-kaynak · emoji-ikon yasağı · motion+reduce-motion. Faz 0: tema + temel token'lar
-(renk/tipografi/boşluk) kuruldu; bileşen kütüphanesi Faz 1.
+token tek-kaynak · emoji-ikon yasağı · motion+reduce-motion (motion-design skill). Faz 0: tema +
+temel token'lar; **Faz 1: motion token + bileşen kütüphanesi + 4-durum scaffold teslim (ADR-009).**
