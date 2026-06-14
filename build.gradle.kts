@@ -12,6 +12,10 @@ plugins {
 }
 
 // --- detekt: tüm modüller için ortak kalite/a11y/güvenlik kapısı ---
+// Not: version catalog accessor (`libs`) `subprojects {}` lambda'sının receiver'ında (alt proje)
+// bulunmaz; bu yüzden detekt sürümünü blok DIŞINDA (kök scope) yakalayıp string olarak kullanırız.
+val detektVersion = libs.versions.detekt.get()
+
 subprojects {
     apply(plugin = "io.gitlab.arturbosch.detekt")
 
@@ -25,7 +29,7 @@ subprojects {
     dependencies {
         add(
             "detektPlugins",
-            "io.gitlab.arturbosch.detekt:detekt-formatting:${libs.versions.detekt.get()}",
+            "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion",
         )
     }
 }
