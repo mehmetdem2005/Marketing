@@ -9,9 +9,9 @@ object CartRoutes {
     const val ROUTE = "cart"
 }
 
-/** Sepet grafiği. [onExplore] boş sepetten kataloğa götürür (app seviyesinden geçer). */
-fun NavGraphBuilder.cartGraph(onExplore: () -> Unit) {
+/** Sepet grafiği. [onExplore] boş sepetten kataloğa; [onOrderPlaced] sipariş sonrası detaya götürür. */
+fun NavGraphBuilder.cartGraph(onExplore: () -> Unit, onOrderPlaced: (String) -> Unit) {
     composable(CartRoutes.ROUTE) {
-        CartScreen(onExplore = onExplore)
+        CartScreen(onExplore = onExplore, onOrderPlaced = onOrderPlaced)
     }
 }

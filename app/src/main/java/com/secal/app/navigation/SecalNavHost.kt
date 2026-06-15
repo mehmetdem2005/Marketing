@@ -32,6 +32,8 @@ import com.secal.feature.catalog.navigation.catalogGraph
 import com.secal.feature.home.navigation.HomeRoutes
 import com.secal.feature.home.navigation.accountScreen
 import com.secal.feature.home.navigation.homeScreen
+import com.secal.feature.order.navigation.OrderRoutes
+import com.secal.feature.order.navigation.orderGraph
 import com.secal.feature.profile.navigation.ProfileRoutes
 import com.secal.feature.profile.navigation.profileScreen
 import com.secal.feature.seller.navigation.SellerRoutes
@@ -111,12 +113,17 @@ fun SecalNavHost(modifier: Modifier = Modifier) {
                 navController = navController,
                 onOpenCart = { navController.navigateToTab(CartRoutes.ROUTE) },
             )
-            cartGraph(onExplore = { navController.navigateToTab(CatalogRoutes.LIST) })
+            cartGraph(
+                onExplore = { navController.navigateToTab(CatalogRoutes.LIST) },
+                onOrderPlaced = { orderId -> navController.navigate(OrderRoutes.detail(orderId)) },
+            )
             accountScreen(
                 onProfile = { navController.navigate(ProfileRoutes.ROUTE) },
+                onOrders = { navController.navigate(OrderRoutes.LIST) },
                 onSeller = { navController.navigate(SellerRoutes.HOME) },
                 onSignOut = { navController.returnToAuth() },
             )
+            orderGraph(navController = navController)
             sellerGraph(navController = navController)
             profileScreen(onSignedOut = { navController.returnToAuth() })
         }

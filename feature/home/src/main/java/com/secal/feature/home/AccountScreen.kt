@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.ReceiptLong
 import androidx.compose.material.icons.outlined.Storefront
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -28,6 +29,7 @@ import com.secal.designsystem.theme.LocalSpacing
 @Composable
 fun AccountScreen(
     onProfile: () -> Unit,
+    onOrders: () -> Unit,
     onSeller: () -> Unit,
     onSignOut: () -> Unit,
     modifier: Modifier = Modifier,
@@ -41,6 +43,8 @@ fun AccountScreen(
             modifier = Modifier.padding(horizontal = spacing.md, vertical = spacing.sm),
         )
         AccountRow(icon = Icons.Outlined.Person, label = "Profilim", onClick = onProfile)
+        HorizontalDivider()
+        AccountRow(icon = Icons.Outlined.ReceiptLong, label = "Siparişlerim", onClick = onOrders)
         HorizontalDivider()
         AccountRow(icon = Icons.Outlined.Storefront, label = "Satıcı paneli", onClick = onSeller)
         HorizontalDivider()

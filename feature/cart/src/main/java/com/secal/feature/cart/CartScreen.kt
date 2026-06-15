@@ -14,6 +14,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,11 +40,19 @@ import com.secal.core.ui.state.UiStateScaffold
 @Composable
 fun CartScreen(
     onExplore: () -> Unit,
+    onOrderPlaced: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CartViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val checkout by viewModel.checkout.collectAsStateWithLifecycle()
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { viewModel.load() }
+    LaunchedEffect(checkout) {
+        (checkout as? CheckoutUi.Placed)?.let {
+            onOrderPlaced(it.orderId)
+            viewModel.consumeCheckout()
+        }
+    }
     UiStateScaffold(
         state = state,
         modifier = modifier.fillMaxSize(),
@@ -51,15 +60,17 @@ fun CartScreen(
         empty = {
             EmptyState(
                 title = "Sepetin boş",
-                description = "Köy ürünlerini keşfet, beğendiğini sepete ekle.",
+                description = "Ürünleri keşfet, beğendiğini sepete ekle.",
                 action = { SecalButton(text = "Ürünleri keşfet", onClick = onExplore) },
             )
         },
     ) { items ->
         CartContent(
             items = items,
+            placing = checkout is CheckoutUi.Placing,
             onQuantityChange = viewModel::changeQuantity,
             onRemove = viewModel::removeItem,
+            onCheckout = viewModel::placeOrder,
         )
     }
 }
@@ -67,8 +78,10 @@ fun CartScreen(
 @Composable
 private fun CartContent(
     items: List<CartItem>,
+    placing: Boolean,
     onQuantityChange: (String, Int) -> Unit,
     onRemove: (String) -> Unit,
+    onCheckout: () -> Unit,
 ) {
     val spacing = LocalSpacing.current
     val totalMinor = items.sumOf { it.lineTotalMinor }
@@ -83,7 +96,7 @@ private fun CartContent(
                 HorizontalDivider()
             }
         }
-        CartSummary(totalMinor = totalMinor, currency = currency)
+        CartSummary(totalMinor = totalMinor, currency = currency, placing = placing, onCheckout = onCheckout)
     }
 }
 
@@ -127,7 +140,7 @@ private fun CartRow(
 }
 
 @Composable
-private fun CartSummary(totalMinor: Long, currency: String) {
+private fun CartSummary(totalMinor: Long, currency: String, placing: Boolean, onCheckout: () -> Unit) {
     val spacing = LocalSpacing.current
     Column(
         modifier = Modifier.fillMaxWidth().padding(spacing.md),
@@ -143,9 +156,10 @@ private fun CartSummary(totalMinor: Long, currency: String) {
             PriceTag(amountMinor = totalMinor, currencyCode = currency)
         }
         SecalButton(
-            text = "Siparişi tamamla (yakında)",
-            onClick = {},
-            enabled = false,
+            text = "Siparişi tamamla",
+            onClick = onCheckout,
+            enabled = !placing,
+            loading = placing,
             modifier = Modifier.fillMaxWidth(),
         )
     }

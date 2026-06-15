@@ -22,6 +22,7 @@
 - ADR-015 — Faz 4: Satıcı (mağaza & ürün yönetimi + görsel upload)
 - ADR-016 — Faz 5a: Sepet (cart_items + atomik add_to_cart RPC, PII/RLS)
 - ADR-017 — UI: Trendyol-kalıbı navigasyon (M3 alt menü + zengin Anasayfa + Hesabım)
+- ADR-018 — Faz 5b: Sipariş (orders/order_items + place_order RPC, fiyat snapshot)
 
 ---
 
@@ -273,5 +274,24 @@
 
 ---
 
-**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..017 kilitlenen
+## ADR-018 — Faz 5b: Sipariş (orders/order_items + place_order RPC)
+- **Durum:** Kabul · TOGAF Phase C (Data+Application) · ISO 25010 Reliability + 25012 (snapshot tutarlılık) ·
+  27002 (PII/RLS). Değişiklik sınıfı: Artımlı.
+- **Bağlam:** Sepetten siparişe geçiş gerekiyor; sipariş kaydı, ürün sonradan değişse/silinse bile sabit
+  kalmalı (fiyat/ad snapshot). Stok düşümü ve sepet temizliği atomik olmalı (race/yarım sipariş yok).
+- **Karar:**
+  - Backend `0004_orders.sql`: `orders` (status enum check) + `order_items` (product_name/unit_price_minor
+    **snapshot**) + deny-by-default RLS (yalnız sahibi). **`place_order()`** `security definer` RPC:
+    toplam hesapla → order + order_items → stok düş (greatest(.,0)) → sepeti temizle (tek transaction).
+  - Android: domain `OrderRepository` (+Order/OrderItem) → data `SupabaseOrderRepository` (rpc place_order
+    decodeAs<String>, embedded order_items select) + DI → `feature:order` (Siparişlerim listesi + detay/onay,
+    4-durum). Sepet "Siparişi tamamla" → `placeOrder` → sipariş detayına. Hesabım → Siparişlerim.
+- **Sonuçlar:** Alıcı uçtan uca sipariş verebilir; geçmiş siparişler görüntülenir. **0004 canlıya uygulandı**
+  (Management API). Satıcının sipariş görünümü + durum güncelleme = sonraki faz (admin/satıcı).
+- **Değerlendirilen alternatifler:** İstemci-tarafı çok-adımlı yazma (reddedildi: atomik değil, RLS stok
+  düşümüne izin vermez) → security definer RPC. order_items'ta canlı ürün FK fiyatı (reddedildi: snapshot şart).
+
+---
+
+**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..018 kilitlenen
 kararları belgeler (ADR-014 = marka adı **SeçAl**) · supersedes mekanizması tanımlı.

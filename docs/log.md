@@ -31,3 +31,4 @@ Format: `## [YYYY-MM-DD] aksiyon | açıklama`.
 ## [2026-06-15] infra | Canlı Supabase (koyden projesi yampwgdlqncdgwjslige) Management API ile bağlandı: 0003 sepet migration uygulandı (0001/0002 zaten vardı), e-posta autoconfirm açıldı, product-images bucket doğrulandı. anon key+URL gradle.properties'e gömüldü (public; gitleaks allowlist). APK artık backend'e bağlı derlenecek.
 ## [2026-06-15] feat | UI yeniden tasarım (ADR-017): M3 alt menü (Anasayfa/Keşfet/Sepet/Hesabım) + zengin Anasayfa (arama+banner+kategori şeridi+öne çıkan ürünler) + Hesabım menüsü. HomePlaceholder kaldırıldı. Trendyol kalıbı. Kullanıcı geri bildirimi üzerine.
 ## [2026-06-15] merge | UI yeniden tasarım (ADR-017) yeşil → main. Alt menü + Anasayfa + Hesabım canlı. Yeni APK artifact hazır.
+## [2026-06-15] feat | Faz 5b Sipariş (ADR-018): orders/order_items + place_order RPC (M2 0004 canlıda), domain/data/feature:order (Siparişlerim+detay), sepet checkout, Hesabım→Siparişlerim.

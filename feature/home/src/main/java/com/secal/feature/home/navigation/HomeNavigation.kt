@@ -31,10 +31,16 @@ fun NavGraphBuilder.homeScreen(
 /** Hesabım sekmesi. */
 fun NavGraphBuilder.accountScreen(
     onProfile: () -> Unit,
+    onOrders: () -> Unit,
     onSeller: () -> Unit,
     onSignOut: () -> Unit,
 ) {
     composable(HomeRoutes.ACCOUNT) {
-        AccountScreen(onProfile = onProfile, onSeller = onSeller, onSignOut = onSignOut)
+        AccountScreen(
+            onProfile = onProfile,
+            onOrders = onOrders,
+            onSeller = onSeller,
+            onSignOut = onSignOut,
+        )
     }
 }
