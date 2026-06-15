@@ -33,3 +33,4 @@ Format: `## [YYYY-MM-DD] aksiyon | açıklama`.
 ## [2026-06-15] merge | UI yeniden tasarım (ADR-017) yeşil → main. Alt menü + Anasayfa + Hesabım canlı. Yeni APK artifact hazır.
 ## [2026-06-15] feat | Faz 5b Sipariş (ADR-018): orders/order_items + place_order RPC (M2 0004 canlıda), domain/data/feature:order (Siparişlerim+detay), sepet checkout, Hesabım→Siparişlerim.
 ## [2026-06-15] chore | Agent skill'leri repoya kuruldu (.claude/skills): GitHub'dan compose-expert (aldefy) + android-kotlin (Drjacky/ninja) Kotlin/Compose skill'leri; tasarım/motion skill'leri (design-standards, web-design-advanced, ui-ux-advanced, motion-design) mse-auto'dan taşındı. Kullanıcı talebi.
+## [2026-06-15] feat | i18n altyapısı + motion: app(nav)+home/account metinleri string-resource'a (dinamik, çoklu-dile hazır), uydurma slogan kaldırıldı (hero=wordmark). NavHost ekran geçişleri (slide+fade, reduce-motion). UI metin&menüleme politikası dokümante edildi. Kullanıcı talebi.

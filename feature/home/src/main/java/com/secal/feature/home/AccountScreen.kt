@@ -21,9 +21,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.secal.designsystem.theme.LocalSpacing
+import com.secal.feature.home.R
 
 /** Hesabım: kullanıcı menüsü (profil / satıcı / çıkış) — Trendyol "Hesabım" kalıbı. */
 @Composable
@@ -37,20 +39,20 @@ fun AccountScreen(
     val spacing = LocalSpacing.current
     Column(modifier = modifier.fillMaxWidth().padding(vertical = spacing.md)) {
         Text(
-            "Hesabım",
+            stringResource(R.string.account_title),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(horizontal = spacing.md, vertical = spacing.sm),
         )
-        AccountRow(icon = Icons.Outlined.Person, label = "Profilim", onClick = onProfile)
+        AccountRow(icon = Icons.Outlined.Person, label = stringResource(R.string.account_profile), onClick = onProfile)
         HorizontalDivider()
-        AccountRow(icon = Icons.Outlined.ReceiptLong, label = "Siparişlerim", onClick = onOrders)
+        AccountRow(icon = Icons.Outlined.ReceiptLong, label = stringResource(R.string.account_orders), onClick = onOrders)
         HorizontalDivider()
-        AccountRow(icon = Icons.Outlined.Storefront, label = "Satıcı paneli", onClick = onSeller)
+        AccountRow(icon = Icons.Outlined.Storefront, label = stringResource(R.string.account_seller), onClick = onSeller)
         HorizontalDivider()
         AccountRow(
             icon = Icons.AutoMirrored.Filled.Logout,
-            label = "Çıkış yap",
+            label = stringResource(R.string.account_signout),
             onClick = onSignOut,
             tint = MaterialTheme.colorScheme.error,
         )

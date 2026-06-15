@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- i18n: Anasayfa + Hesabım metinleri. Tümü dinamik (kaynaktan); çoklu dil için values-<lang>/ eklenir. -->
+<resources>
+    <!-- Anasayfa -->
+    <string name="home_brand">SeçAl</string>
+    <string name="home_search_hint">Ürün, kategori ara</string>
+    <string name="home_section_categories">Kategoriler</string>
+    <string name="home_section_featured">Öne çıkan ürünler</string>
+    <string name="action_see_all">Tümü</string>
+    <string name="home_empty_products">Henüz ürün yok</string>
+    <string name="home_empty_seller_cta">Satıcı paneline git</string>
+
+    <!-- Hesabım -->
+    <string name="account_title">Hesabım</string>
+    <string name="account_profile">Profilim</string>
+    <string name="account_orders">Siparişlerim</string>
+    <string name="account_seller">Satıcı paneli</string>
+    <string name="account_signout">Çıkış yap</string>
+</resources>

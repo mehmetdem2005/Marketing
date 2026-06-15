@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -37,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.secal.feature.home.R
 import com.secal.core.domain.catalog.Category
 import com.secal.core.domain.catalog.Product
 import com.secal.designsystem.component.ProductCard
@@ -67,12 +69,16 @@ fun HomeScreen(
         }
         if (state.categories.isNotEmpty()) {
             item {
-                SectionHeader(title = "Kategoriler")
+                SectionHeader(title = stringResource(R.string.home_section_categories))
                 CategoryStrip(categories = state.categories, onCategoryClick = onCategoryClick)
             }
         }
         item {
-            SectionHeader(title = "Öne çıkan ürünler", actionLabel = "Tümü", onAction = onSearch)
+            SectionHeader(
+                title = stringResource(R.string.home_section_featured),
+                actionLabel = stringResource(R.string.action_see_all),
+                onAction = onSearch,
+            )
         }
         if (state.featured.isNotEmpty()) {
             item { FeaturedRow(products = state.featured, onProductClick = onProductClick) }
@@ -102,7 +108,7 @@ private fun SearchBar(onSearch: () -> Unit) {
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Text(
-                "Ürün, kategori ara",
+                stringResource(R.string.home_search_hint),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -123,19 +129,14 @@ private fun HeroBanner() {
             .padding(spacing.lg),
         contentAlignment = Alignment.CenterStart,
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(spacing.xs)) {
-            Text(
-                "Köyün doğal ürünleri",
-                style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onPrimary,
-                fontWeight = FontWeight.Bold,
-            )
-            Text(
-                "Üreticiden kapına, güvenle.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onPrimary,
-            )
-        }
+        // Marka wordmark — slogan/pazarlama metni YOK (kullanıcı onayı olmadan metin yazılmaz).
+        // Bu alan ileride kampanya görseli/içeriği için hazır.
+        Text(
+            stringResource(R.string.home_brand),
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.onPrimary,
+            fontWeight = FontWeight.Bold,
+        )
     }
 }
 
@@ -239,11 +240,11 @@ private fun EmptyFeatured(onBecomeSeller: () -> Unit) {
         verticalArrangement = Arrangement.spacedBy(spacing.sm),
     ) {
         Text(
-            "Henüz ürün yok. İlk ürünü sen ekle!",
+            stringResource(R.string.home_empty_products),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
         )
-        SecalButton(text = "Satıcı paneline git", onClick = onBecomeSeller)
+        SecalButton(text = stringResource(R.string.home_empty_seller_cta), onClick = onBecomeSeller)
     }
 }

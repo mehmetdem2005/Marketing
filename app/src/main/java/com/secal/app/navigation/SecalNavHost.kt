@@ -1,5 +1,10 @@
 package com.secal.app.navigation
 
+import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -19,6 +24,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import com.secal.app.R
+import com.secal.designsystem.motion.MotionTokens
+import com.secal.designsystem.motion.rememberReduceMotion
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -42,16 +51,16 @@ import com.secal.feature.seller.navigation.sellerGraph
 /** Alt menü sekmesi tanımı. */
 private data class TopTab(
     val route: String,
-    val label: String,
+    @param:StringRes val label: Int,
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
 )
 
 private val TOP_TABS = listOf(
-    TopTab(HomeRoutes.HOME, "Anasayfa", Icons.Filled.Home, Icons.Outlined.Home),
-    TopTab(CatalogRoutes.LIST, "Keşfet", Icons.Filled.Search, Icons.Outlined.Search),
-    TopTab(CartRoutes.ROUTE, "Sepet", Icons.Filled.ShoppingCart, Icons.Outlined.ShoppingCart),
-    TopTab(HomeRoutes.ACCOUNT, "Hesabım", Icons.Filled.Person, Icons.Outlined.Person),
+    TopTab(HomeRoutes.HOME, R.string.nav_home, Icons.Filled.Home, Icons.Outlined.Home),
+    TopTab(CatalogRoutes.LIST, R.string.nav_explore, Icons.Filled.Search, Icons.Outlined.Search),
+    TopTab(CartRoutes.ROUTE, R.string.nav_cart, Icons.Filled.ShoppingCart, Icons.Outlined.ShoppingCart),
+    TopTab(HomeRoutes.ACCOUNT, R.string.nav_account, Icons.Filled.Person, Icons.Outlined.Person),
 )
 
 /**
@@ -65,6 +74,8 @@ fun SecalNavHost(modifier: Modifier = Modifier) {
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
     val showBottomBar = currentRoute in TOP_TABS.map { it.route }
+    val reduce = rememberReduceMotion()
+    val dur = MotionTokens.DurationStandard
 
     Scaffold(
         modifier = modifier,
@@ -73,16 +84,17 @@ fun SecalNavHost(modifier: Modifier = Modifier) {
                 NavigationBar {
                     TOP_TABS.forEach { tab ->
                         val selected = currentRoute == tab.route
+                        val label = stringResource(tab.label)
                         NavigationBarItem(
                             selected = selected,
                             onClick = { navController.navigateToTab(tab.route) },
                             icon = {
                                 Icon(
                                     if (selected) tab.selectedIcon else tab.unselectedIcon,
-                                    contentDescription = tab.label,
+                                    contentDescription = label,
                                 )
                             },
-                            label = { Text(tab.label) },
+                            label = { Text(label) },
                         )
                     }
                 }
@@ -93,6 +105,22 @@ fun SecalNavHost(modifier: Modifier = Modifier) {
             navController = navController,
             startDestination = AuthRoutes.GRAPH,
             modifier = Modifier.padding(innerPadding),
+            enterTransition = {
+                if (reduce) fadeIn(tween(0))
+                else slideIntoContainer(SlideDirection.Start, tween(dur)) + fadeIn(tween(dur))
+            },
+            exitTransition = {
+                if (reduce) fadeOut(tween(0))
+                else slideOutOfContainer(SlideDirection.Start, tween(dur)) + fadeOut(tween(dur))
+            },
+            popEnterTransition = {
+                if (reduce) fadeIn(tween(0))
+                else slideIntoContainer(SlideDirection.End, tween(dur)) + fadeIn(tween(dur))
+            },
+            popExitTransition = {
+                if (reduce) fadeOut(tween(0))
+                else slideOutOfContainer(SlideDirection.End, tween(dur)) + fadeOut(tween(dur))
+            },
         ) {
             authGraph(
                 navController = navController,

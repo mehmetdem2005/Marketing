@@ -2,4 +2,10 @@
 <resources>
     <!-- Marka adı tek yerden değiştirilebilir. -->
     <string name="app_name">SeçAl</string>
+
+    <!-- Alt menü (bottom navigation) etiketleri. i18n: tüm metinler kaynaktan, dinamik. -->
+    <string name="nav_home">Anasayfa</string>
+    <string name="nav_explore">Keşfet</string>
+    <string name="nav_cart">Sepet</string>
+    <string name="nav_account">Hesabım</string>
 </resources>
