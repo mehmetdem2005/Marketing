@@ -19,3 +19,5 @@ Format: `## [YYYY-MM-DD] aksiyon | açıklama`.
 ## [2026-06-15] infra | main dalı yeşil HEAD'den oluşturuldu (repoda yoktu); merge iş akışı kuruldu.
 ## [2026-06-15] tooling | obsidian-second-brain skill'i fiilen yüklendi/uygulanıyor; qmd kuruldu+indeksli (BM25+vektör).
 ## [2026-06-15] feat | Katalog dikey dilimi (ADR-013): 0002_catalog migration (marketing-2) + Android domain/data/UI (feature:catalog). Migration canlıya CI yeşil sonrası uygulanacak.
+## [2026-06-15] db | 0002_catalog canlı Köyden Supabase'e uygulandı (HTTP 201): 6 tablo, 8 kategori seed, 10 RLS politikası doğrulandı.
+## [2026-06-15] merge | Katalog yeşil (eff9c5c) → main'e merge (665377b). main + claude dalı senkron.
