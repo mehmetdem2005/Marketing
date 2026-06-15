@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
@@ -29,6 +28,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -123,19 +124,33 @@ private fun HeroBanner() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = spacing.md)
-            .clip(RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.primary)
-            .height(150.dp)
-            .padding(spacing.lg),
-        contentAlignment = Alignment.CenterStart,
+            .clip(RoundedCornerShape(24.dp))
+            .height(170.dp)
+            .background(MaterialTheme.colorScheme.primary),
     ) {
-        // Marka wordmark — slogan/pazarlama metni YOK (kullanıcı onayı olmadan metin yazılmaz).
-        // Bu alan ileride kampanya görseli/içeriği için hazır.
+        AsyncImage(
+            model = imageUrl("turkish,bazaar,food", 900, 500),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize(),
+        )
+        // Okunabilirlik için koyu degrade scrim (marka rengi değil → fonksiyonel overlay).
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.horizontalGradient(
+                        listOf(Color.Black.copy(alpha = 0.55f), Color.Transparent),
+                    ),
+                ),
+        )
+        // Marka wordmark — slogan YOK (kullanıcı onayı olmadan metin yazılmaz).
         Text(
             stringResource(R.string.home_brand),
-            style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.onPrimary,
+            style = MaterialTheme.typography.headlineLarge,
+            color = Color.White,
             fontWeight = FontWeight.Bold,
+            modifier = Modifier.align(Alignment.CenterStart).padding(spacing.lg),
         )
     }
 }
@@ -177,32 +192,49 @@ private fun CategoryStrip(categories: List<Category>, onCategoryClick: (String) 
 private fun CategoryItem(category: Category, onClick: () -> Unit) {
     val spacing = LocalSpacing.current
     Column(
-        modifier = Modifier.width(72.dp).clickable(onClick = onClick),
+        modifier = Modifier.width(84.dp).clickable(onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(spacing.xs),
     ) {
         Box(
             modifier = Modifier
-                .size(56.dp)
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.primaryContainer),
-            contentAlignment = Alignment.Center,
+                .size(76.dp)
+                .clip(RoundedCornerShape(20.dp))
+                .background(MaterialTheme.colorScheme.secondaryContainer),
         ) {
-            Text(
-                category.name.take(1).uppercase(),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+            AsyncImage(
+                model = imageUrl(categoryKeyword(category.slug), 200, 200),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize(),
             )
         }
         Text(
             category.name,
-            style = MaterialTheme.typography.labelSmall,
+            style = MaterialTheme.typography.labelMedium,
             textAlign = TextAlign.Center,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
     }
 }
+
+/** Kategori slug → topical foto anahtar kelimesi (LoremFlickr). */
+private fun categoryKeyword(slug: String): String = when {
+    "bal" in slug || "ari" in slug -> "honey,jar"
+    "zeytin" in slug -> "olive,oil"
+    "peynir" in slug || "sut" in slug -> "cheese,dairy"
+    "kuruyemis" in slug || "kurutul" in slug -> "nuts,dried"
+    "bakliyat" in slug || "tahil" in slug -> "legumes,grain"
+    "recel" in slug || "salca" in slug -> "jam,tomato"
+    "baharat" in slug || "cay" in slug -> "spices,tea"
+    "sanat" in slug -> "handmade,craft"
+    else -> "food,natural"
+}
+
+/** LoremFlickr topical foto URL'i (anahtar kelimeyle gerçek fotoğraf; ücretsiz/CC). */
+private fun imageUrl(keywords: String, width: Int, height: Int): String =
+    "https://loremflickr.com/$width/$height/$keywords"
 
 @Composable
 private fun FeaturedRow(products: List<Product>, onProductClick: (String) -> Unit) {
