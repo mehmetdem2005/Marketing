@@ -22,3 +22,4 @@ Format: `## [YYYY-MM-DD] aksiyon | açıklama`.
 ## [2026-06-15] db | 0002_catalog canlı Köyden Supabase'e uygulandı (HTTP 201): 6 tablo, 8 kategori seed, 10 RLS politikası doğrulandı.
 ## [2026-06-15] merge | Katalog yeşil (eff9c5c) → main'e merge (665377b). main + claude dalı senkron.
 ## [2026-06-15] plan | Faz faz mimari yol haritası ([[yol-haritasi]]) çıkarıldı: Faz 0-11; Faz 3 = İsim & Marka (isime ayrılmış faz). index/North Star bağlandı.
+## [2026-06-15] brand | Faz 3 başladı: isim adayları + matris + domain DNS taraması → [[isim-adaylari]]. Karar kullanıcıda.
