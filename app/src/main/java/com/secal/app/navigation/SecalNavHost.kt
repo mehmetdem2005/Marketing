@@ -20,6 +20,8 @@ import com.secal.designsystem.component.SecalButtonVariant
 import com.secal.designsystem.theme.LocalSpacing
 import com.secal.feature.auth.navigation.AuthRoutes
 import com.secal.feature.auth.navigation.authGraph
+import com.secal.feature.cart.navigation.CartRoutes
+import com.secal.feature.cart.navigation.cartGraph
 import com.secal.feature.catalog.navigation.CatalogRoutes
 import com.secal.feature.catalog.navigation.catalogGraph
 import com.secal.feature.profile.navigation.ProfileRoutes
@@ -57,11 +59,16 @@ fun SecalNavHost(modifier: Modifier = Modifier) {
         composable(HOME_ROUTE) {
             HomePlaceholder(
                 onOpenCatalog = { navController.navigate(CatalogRoutes.LIST) },
+                onOpenCart = { navController.navigate(CartRoutes.ROUTE) },
                 onOpenSeller = { navController.navigate(SellerRoutes.HOME) },
                 onOpenProfile = { navController.navigate(ProfileRoutes.ROUTE) },
             )
         }
-        catalogGraph(navController = navController)
+        catalogGraph(
+            navController = navController,
+            onOpenCart = { navController.navigate(CartRoutes.ROUTE) },
+        )
+        cartGraph(onExplore = { navController.navigate(CatalogRoutes.LIST) })
         sellerGraph(navController = navController)
         profileScreen(
             onSignedOut = { navController.returnToAuth() },
@@ -80,6 +87,7 @@ private fun NavController.returnToAuth() {
 @Composable
 private fun HomePlaceholder(
     onOpenCatalog: () -> Unit,
+    onOpenCart: () -> Unit,
     onOpenSeller: () -> Unit,
     onOpenProfile: () -> Unit,
 ) {
@@ -103,6 +111,12 @@ private fun HomePlaceholder(
             text = "Ürünleri keşfet",
             onClick = onOpenCatalog,
             modifier = Modifier.fillMaxWidth().padding(top = spacing.md),
+        )
+        SecalButton(
+            text = "Sepetim",
+            onClick = onOpenCart,
+            variant = SecalButtonVariant.Secondary,
+            modifier = Modifier.fillMaxWidth(),
         )
         SecalButton(
             text = "Satıcı paneli",

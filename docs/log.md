@@ -27,3 +27,4 @@ Format: `## [YYYY-MM-DD] aksiyon | açıklama`.
 ## [2026-06-15] feat | Faz 4 Satıcı (ADR-015): install(Storage) + SellerRepository/data + feature:seller (mağaza kur, ürün ekle, görsel upload PickVisualMedia). Yeni migration gerekmedi (RLS owns_store mevcut).
 ## [2026-06-15] merge | Faz 4 Satıcı yeşil (9c0ebd5) → main'e merge. Satıcı uçtan uca: mağaza aç + görselli ürün ekle → katalogda görünür.
 ## [2026-06-15] brand | Faz 3 (ADR-014): marka adı = SeçAl. Tam rename com.koyden→com.secal (89 dosya, 14 paket dizini, Koyden*→Secal*, app_name=SeçAl). Marka kılavuzu eklendi. Kalan koyden/Köyden=0.
+## [2026-06-15] feat | Faz 5a Sepet (ADR-016): cart_items+add_to_cart RPC (M2 0003), domain/data/feature:cart, ürün detayı "Sepete ekle"+snackbar, home "Sepetim". Migration canlıya UYGULANMADI (izin bekliyor).

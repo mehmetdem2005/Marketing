@@ -16,8 +16,8 @@ object CatalogRoutes {
     fun detail(productId: String): String = "catalog/product/$productId"
 }
 
-/** Katalog grafiği: liste + ürün detay. */
-fun NavGraphBuilder.catalogGraph(navController: NavController) {
+/** Katalog grafiği: liste + ürün detay. [onOpenCart] sepeti açar (app seviyesinden geçer — çapraz-feature bağımlılığı yok). */
+fun NavGraphBuilder.catalogGraph(navController: NavController, onOpenCart: () -> Unit) {
     composable(CatalogRoutes.LIST) {
         CatalogScreen(
             onProductClick = { productId -> navController.navigate(CatalogRoutes.detail(productId)) },
@@ -27,6 +27,9 @@ fun NavGraphBuilder.catalogGraph(navController: NavController) {
         route = CatalogRoutes.DETAIL,
         arguments = listOf(navArgument("productId") { type = NavType.StringType }),
     ) {
-        ProductDetailScreen(onBack = { navController.popBackStack() })
+        ProductDetailScreen(
+            onBack = { navController.popBackStack() },
+            onOpenCart = onOpenCart,
+        )
     }
 }

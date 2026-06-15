@@ -20,6 +20,7 @@
 - ADR-013 — Faz 2: Katalog/keşif (çok-repolu dikey dilim, public read)
 - ADR-014 — Marka adı: **SeçAl** + tam paket rename (com.koyden → com.secal)
 - ADR-015 — Faz 4: Satıcı (mağaza & ürün yönetimi + görsel upload)
+- ADR-016 — Faz 5a: Sepet (cart_items + atomik add_to_cart RPC, PII/RLS)
 
 ---
 
@@ -229,5 +230,26 @@
 
 ---
 
-**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..015 kilitlenen
+## ADR-016 — Faz 5a: Sepet (cart_items + atomik RPC)
+- **Durum:** Kabul · TOGAF Phase C/D · ISO 25010 (güvenilirlik) · 27002 (PII/RLS)
+- **Bağlam:** Alıcının ürün→sepet akışı gerekiyor. Sepet PII'dir; eşzamanlı "sepete ekle"de
+  miktar tutarlılığı (race) korunmalı.
+- **Karar:**
+  - Backend `0003_cart.sql` (marketing-2): `cart_items` (user_id+product_id unique, qty 1..99 check),
+    deny-by-default RLS (yalnız sahibi), `set_updated_at` trigger. Sepet "başlığı" (carts) MVP'de
+    cart_items'a (user_id anahtarlı) katlandı — gereksiz join yok. **Atomik** `add_to_cart(product, qty)`
+    RPC: `insert ... on conflict do update set qty = least(qty+excluded, 99)` (race-safe artış).
+  - Android: domain `CartRepository` (+CartItem, satır toplamı kuruş) → data `SupabaseCartRepository`
+    (embedded select `products(PRODUCT_COLUMNS)` katalog DTO'su modül-içi yeniden kullanım; rpc/update/delete)
+    → `feature:cart` (UiState 4-durum; QuantityStepper; kaldır; alt özet toplam). Ürün detayına
+    **Sepete ekle** + snackbar geri bildirimi ("Sepete git"). Home "Sepetim". Çapraz-feature bağımlılığı
+    yok (onOpenCart/onExplore app seviyesinden geçer).
+- **Sonuçlar:** Alıcı sepet yönetebilir. **Migration canlıya uygulanmadı** (kullanıcı izni gerekli —
+  uygulanana kadar sepet runtime'da çalışmaz). Sipariş/checkout = ADR-017 (Faz 5b).
+- **Değerlendirilen alternatifler:** İstemci upsert ile miktar set (reddedildi: race + artış yapamaz →
+  RPC tercih); ayrı carts başlık tablosu (ertelendi: MVP'de gereksiz join).
+
+---
+
+**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..016 kilitlenen
 kararları belgeler (ADR-014 = marka adı **SeçAl**) · supersedes mekanizması tanımlı.

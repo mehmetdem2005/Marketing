@@ -10,9 +10,15 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -28,27 +34,58 @@ import com.secal.designsystem.component.PriceTag
 import com.secal.designsystem.theme.LocalSpacing
 
 /**
- * Ürün detay: görsel + ad + fiyat + mağaza + stok + açıklama + (sepete ekle — Faz: sepet).
- * Yükleme 4-durum scaffold ile.
+ * Ürün detay: görsel + ad + fiyat + mağaza + stok + açıklama + **sepete ekle** (RPC).
+ * Ekleme geri bildirimi snackbar ile (mikro-etkileşim); "Sepete git" aksiyonu sepeti açar.
  */
 @Composable
 fun ProductDetailScreen(
     onBack: () -> Unit,
+    onOpenCart: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProductDetailViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    UiStateScaffold(
-        state = state,
+    val cartStatus by viewModel.cartStatus.collectAsStateWithLifecycle()
+    val snackbar = remember { SnackbarHostState() }
+
+    LaunchedEffect(cartStatus) {
+        when (cartStatus) {
+            CartStatus.Added -> {
+                val result = snackbar.showSnackbar(
+                    message = "Ürün sepete eklendi",
+                    actionLabel = "Sepete git",
+                )
+                if (result == SnackbarResult.ActionPerformed) onOpenCart()
+                viewModel.consumeCartStatus()
+            }
+            CartStatus.Error -> {
+                snackbar.showSnackbar("Sepete eklenemedi, tekrar dene")
+                viewModel.consumeCartStatus()
+            }
+            else -> Unit
+        }
+    }
+
+    Scaffold(
         modifier = modifier.fillMaxSize(),
-        onRetry = viewModel::load,
-    ) { product ->
-        ProductDetailContent(product = product, onBack = onBack)
+        snackbarHost = { SnackbarHost(snackbar) },
+    ) { padding ->
+        UiStateScaffold(
+            state = state,
+            modifier = Modifier.fillMaxSize().padding(padding),
+            onRetry = viewModel::load,
+        ) { product ->
+            ProductDetailContent(
+                product = product,
+                adding = cartStatus == CartStatus.Adding,
+                onAddToCart = viewModel::addToCart,
+            )
+        }
     }
 }
 
 @Composable
-private fun ProductDetailContent(product: Product, onBack: () -> Unit) {
+private fun ProductDetailContent(product: Product, adding: Boolean, onAddToCart: () -> Unit) {
     val spacing = LocalSpacing.current
     Column(
         modifier = Modifier
@@ -85,8 +122,9 @@ private fun ProductDetailContent(product: Product, onBack: () -> Unit) {
         }
         SecalButton(
             text = "Sepete ekle",
-            onClick = onBack, // Faz: sepet — şimdilik geri döner (placeholder akış)
-            enabled = product.inStock,
+            onClick = onAddToCart,
+            enabled = product.inStock && !adding,
+            loading = adding,
             modifier = Modifier.fillMaxWidth().padding(top = spacing.md),
         )
     }

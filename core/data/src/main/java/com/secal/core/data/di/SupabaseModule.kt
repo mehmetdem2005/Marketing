@@ -2,10 +2,12 @@ package com.secal.core.data.di
 
 import com.secal.core.data.auth.SupabaseAuthRepository
 import com.secal.core.data.auth.SupabaseConfig
+import com.secal.core.data.cart.SupabaseCartRepository
 import com.secal.core.data.catalog.SupabaseCatalogRepository
 import com.secal.core.data.profile.SupabaseProfileRepository
 import com.secal.core.data.seller.SupabaseSellerRepository
 import com.secal.core.domain.auth.AuthRepository
+import com.secal.core.domain.cart.CartRepository
 import com.secal.core.domain.catalog.CatalogRepository
 import com.secal.core.domain.profile.ProfileRepository
 import com.secal.core.domain.seller.SellerRepository
@@ -62,4 +64,8 @@ abstract class AuthBindingModule {
     @Binds
     @Singleton
     abstract fun bindSellerRepository(impl: SupabaseSellerRepository): SellerRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindCartRepository(impl: SupabaseCartRepository): CartRepository
 }
