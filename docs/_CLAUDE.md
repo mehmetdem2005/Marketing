@@ -1,6 +1,6 @@
 ---
 type: operating-manual
-title: Vault Operating Manual (Köyden docs)
+title: Vault Operating Manual (SeçAl docs)
 ai-first: true
 tags: [meta, claude, vault]
 updated: 2026-06-15
@@ -8,7 +8,7 @@ updated: 2026-06-15
 
 # Vault Operating Manual — `docs/`
 
-Bu klasör Köyden'in **ikinci beyni**dir (self-rewriting knowledge base). Claude ve
+Bu klasör SeçAl'in **ikinci beyni**dir (self-rewriting knowledge base). Claude ve
 katkıda bulunanlar için kurallar:
 
 ## İlkeler

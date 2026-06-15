@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.koyden.feature.profile"
+    namespace = "com.secal.feature.profile"
     compileSdk = 35
     defaultConfig { minSdk = 24 }
     buildFeatures { compose = true }

@@ -1,4 +1,4 @@
-# Skill Yönlendirme — Köyden
+# Skill Yönlendirme — SeçAl
 
 > Bu dosya her oturum başında (SessionStart hook) bağlama enjekte edilir.
 
@@ -21,7 +21,7 @@ konuşma kalıcı değer ürettiğinde PROAKTİF kaydet; iş sonunda ADR/log gü
 - **qmd** — markdown'da semantik arama; dosya okumadan ÖNCE proaktif kullan.
 - **obsidian-mind** `/om-*` komutları + agent'lar (vault-librarian, cross-linker, context-loader…) — oturum başlat/bitir, bilgi tabanı bakımı.
 
-## Köyden bilgi tabanı (kanonik gerçek)
+## SeçAl bilgi tabanı (kanonik gerçek)
 `docs/EA-TOGAF-mimari.md` · `docs/mimari-karar-gunlugu.md` (ADR) · `docs/guvenlik.md` · `docs/ISO-uyumluluk.md` · `docs/tasarim-sistemi.md`
 → Anlamlı her değişiklik: **ADR yaz + EA güncelle**, çelişki → **supersedes** (second-brain disiplini). Sohbet kalıcı hafıza DEĞİL — durable bilgi git'teki markdown'a.
 

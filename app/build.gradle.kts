@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.koyden.app"
+    namespace = "com.secal.app"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.koyden.app"
+        applicationId = "com.secal.app"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -25,17 +25,17 @@ android {
         // Anon key tasarım gereği herkese açıktır; güvenlik RLS ile sağlanır.
         // Not: değerler .trim() edilir — CI variable/secret'ta kaçak satır sonu/boşluk
         // BuildConfig string literal'ini bozmasın ("unclosed string literal").
-        val supabaseUrl: String = (providers.gradleProperty("KOYDEN_SUPABASE_URL").orNull
-            ?: System.getenv("KOYDEN_SUPABASE_URL") ?: "").trim()
-        val supabaseAnonKey: String = (providers.gradleProperty("KOYDEN_SUPABASE_ANON_KEY").orNull
-            ?: System.getenv("KOYDEN_SUPABASE_ANON_KEY") ?: "").trim()
+        val supabaseUrl: String = (providers.gradleProperty("SECAL_SUPABASE_URL").orNull
+            ?: System.getenv("SECAL_SUPABASE_URL") ?: "").trim()
+        val supabaseAnonKey: String = (providers.gradleProperty("SECAL_SUPABASE_ANON_KEY").orNull
+            ?: System.getenv("SECAL_SUPABASE_ANON_KEY") ?: "").trim()
         buildConfigField("String", "SUPABASE_URL", "\"$supabaseUrl\"")
         buildConfigField("String", "SUPABASE_ANON_KEY", "\"$supabaseAnonKey\"")
 
         // Google OAuth "Web" istemci kimliği (Supabase Google sağlayıcısıyla aynı). Sır değil
         // ama repoda tutulmaz; local.properties / CI'dan gelir.
-        val googleWebClientId: String = (providers.gradleProperty("KOYDEN_GOOGLE_WEB_CLIENT_ID").orNull
-            ?: System.getenv("KOYDEN_GOOGLE_WEB_CLIENT_ID") ?: "").trim()
+        val googleWebClientId: String = (providers.gradleProperty("SECAL_GOOGLE_WEB_CLIENT_ID").orNull
+            ?: System.getenv("SECAL_GOOGLE_WEB_CLIENT_ID") ?: "").trim()
         buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"$googleWebClientId\"")
     }
 

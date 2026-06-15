@@ -1,13 +1,13 @@
-# Köyden — Kurumsal Süreç & Çalışma Standardı (Plan)
+# SeçAl — Kurumsal Süreç & Çalışma Standardı (Plan)
 
 > **Amaç:** Tek geliştirici (solo) çalışsak bile **ekibe/kuruma uygun**, ölçeklenebilir,
 > güvenli, denetlenebilir bir yazılım üretmek. Bu dosya her oturum başında (SessionStart hook)
 > bağlama enjekte edilir; **her işte bu standartlara uyulur**.
 > Durum işaretleri: ✅ Uygulanıyor · 🟡 Planlı (faz) · ⚪ Kapsam dışı (gerekçeli).
-> Kaynak: kurumsal yazılım süreci derlemesi → Köyden (Android + Supabase, multi-repo) uyarlaması.
+> Kaynak: kurumsal yazılım süreci derlemesi → SeçAl (Android + Supabase, multi-repo) uyarlaması.
 
 ## 0. HER OTURUMDA UY (hızlı checklist)
-1. İşe başlamadan: ilgili skill (koyden routing) + bilgi tabanı (docs/EA, ADR) tara.
+1. İşe başlamadan: ilgili skill (secal routing) + bilgi tabanı (docs/EA, ADR) tara.
 2. Değişiklik sınıfını belirle (Basitleştirme / Artımlı / Yeniden-mimari) + TOGAF ADM taraması.
 3. Mimari sınır: domain saf, bağımlılık içe; sır kodda yok; RLS deny-by-default.
 4. Üret + **dört göz yerine self-review checklist** (aşağıda §3) + testi düşün.
@@ -89,7 +89,7 @@
 - **Rollback:** her sürümün geri dönüş planı (önceki APK/migration down) ✅ ilke.
 - **DR (RTO/RPO):** Supabase yönetilen yedek; multi-region ⚪ (ölçek gelmeden).
 
-## 11. Arayüz (Enterprise UI) — Köyden
+## 11. Arayüz (Enterprise UI) — SeçAl
 - **Tasarım sistemi:** `:core:designsystem` ortak bileşen + **design token** (renk/tipografi/
   spacing/motion) tek-kaynak; sıfırdan bileşen yasak (varsa kullan). ✅ (Faz 1, ADR-009)
 - **A11y:** WCAG 2.2 AA, axe/detekt-a11y CI'da; ≥48dp, semantics, reduce-motion. ✅

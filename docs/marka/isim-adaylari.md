@@ -10,7 +10,7 @@ ai-first: true
 
 ## For future Claude
 Köy/doğal/yerel ürün pazaryeri için isim adayları, kriter matrisi ve müsaitlik notları.
-Karar kullanıcıya aittir (marka). Seçim sonrası: ADR (çalışma adı "Köyden"i supersede et) +
+Karar kullanıcıya aittir (marka). Seçim sonrası: ADR (çalışma adı "SeçAl"i supersede et) +
 [[marka-kilavuzu]] + teknik rename. İlgili: [[yol-haritasi]] Faz 3.
 
 ## Kriterler
@@ -23,7 +23,7 @@ Anlam (köy/doğal/üretici/güven) · Akılda kalıcılık & söyleyiş · Tür
 ## Adaylar (kısa liste)
 | İsim | Anlam | Güçlü yön | Zayıf yön | Domain (DNS) |
 |---|---|---|---|---|
-| **Köyden** ⭐ | "köyden" — köyden gelen | Anlam birebir; kısa; mevcut marka birikimi | Jenerik → tescil zayıf | .com/.com.tr dolu → koyden.app/.co |
+| **SeçAl** ⭐ | "köyden" — köyden gelen | Anlam birebir; kısa; mevcut marka birikimi | Jenerik → tescil zayıf | .com/.com.tr dolu → secal.app/.co |
 | **Topraktan** | "topraktan gelen" | Doğal/organik, duygusal, premium his | 3 hece | dolu → topraktan.app/.co |
 | **Obadan** | "obadan" (Anadolu yerleşimi) | Ayırt edici, Anadolu, tescile uygun, **.com.tr boş** | Anlamı herkese açık değil | obadan.com.tr boş olabilir |
 | **Üreticiden** | "üreticiden" — aracısız | En net değer önerisi (doğrudan üretici) | Uzun (4 hece); jenerik | ureticiden.com.tr boş olabilir |
@@ -34,11 +34,11 @@ Harman, Hasat (hasat/harman — güzel ama çok yaygın/tescil kalabalık), Köy
 Yerelden, Köyce, Bereket (gıda olumlu ama çok yaygın marka).
 
 ## Öneri
-- **Anlam + hız + mevcut birikim** istersek → **Köyden** (en güçlü iletişim). Tescili marka+logo
-  bütünüyle ("Köyden" + özgün amblem) güçlendiririz.
+- **Anlam + hız + mevcut birikim** istersek → **SeçAl** (en güçlü iletişim). Tescili marka+logo
+  bütünüyle ("SeçAl" + özgün amblem) güçlendiririz.
 - **Ayırt edicilik + müsait domain + tescil kolaylığı** istersek → **Obadan** (veya duygusal güç için **Topraktan**).
 
 ## Sonraki adım
-Kullanıcı seçer → ADR-014 (isim kararı, "Köyden" çalışma adını supersede/teyit) → [[marka-kilavuzu]]
+Kullanıcı seçer → ADR-014 (isim kararı, "SeçAl" çalışma adını supersede/teyit) → [[marka-kilavuzu]]
 (logo yönü, renk paleti = tasarım token revizyonu, tipografi, ton) → teknik rename (applicationId/
 namespace/strings/paketler) → CI yeşil + WCAG kontrast doğrulama.

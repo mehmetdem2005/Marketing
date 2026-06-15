@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.koyden.feature.order"
+    namespace = "com.secal.feature.order"
     compileSdk = 35
     defaultConfig { minSdk = 24 }
     buildFeatures { compose = true }

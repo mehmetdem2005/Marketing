@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.koyden.core.ui"
+    namespace = "com.secal.core.ui"
     compileSdk = 35
     defaultConfig { minSdk = 24 }
     buildFeatures { compose = true }

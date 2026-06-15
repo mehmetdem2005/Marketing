@@ -5,8 +5,8 @@
 # sdk.dir=/path/to/Android/sdk
 #
 # Supabase (anon key tasarım gereği herkese açıktır; güvenlik RLS ile):
-KOYDEN_SUPABASE_URL=YOUR_SUPABASE_URL
-KOYDEN_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+SECAL_SUPABASE_URL=YOUR_SUPABASE_URL
+SECAL_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
 #
 # Google ile giriş — Google Cloud "Web" OAuth istemci kimliği (Supabase Google sağlayıcısıyla aynı):
-KOYDEN_GOOGLE_WEB_CLIENT_ID=YOUR_GOOGLE_WEB_CLIENT_ID
+SECAL_GOOGLE_WEB_CLIENT_ID=YOUR_GOOGLE_WEB_CLIENT_ID

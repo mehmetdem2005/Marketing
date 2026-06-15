@@ -1,4 +1,4 @@
-# Köyden — Tasarım Sistemi
+# SeçAl — Tasarım Sistemi
 
 Kanonik kod: `:core:designsystem`. UI işlerinde **design-standards + web-design-advanced +
 ui-ux-advanced + motion-design** disiplinleri birlikte uygulanır.
@@ -6,9 +6,9 @@ ui-ux-advanced + motion-design** disiplinleri birlikte uygulanır.
 ## İlkeler
 - **Atomic Design:** token → atom → molekül → organizma → şablon.
 - **8pt grid:** boşluklar `LocalSpacing` token'ından (none/xxs/xs/sm/md/lg/xl/xxl). Sabit `dp` YOK.
-- **Token tek-kaynak:** renk (`KoydenPalette`), tipografi (`KoydenTypography`), boşluk (`Spacing`). Inline renk/dp YASAK.
+- **Token tek-kaynak:** renk (`SecalPalette`), tipografi (`SecalTypography`), boşluk (`Spacing`). Inline renk/dp YASAK.
 - **İkonografi:** vektör ikon (lucide/Material vektör). **EMOJİ-İKON YASAĞI.**
-- **Material 3:** `KoydenTheme` (light/dark), marka renkleri (orman yeşili + buğday/toprak).
+- **Material 3:** `SecalTheme` (light/dark), marka renkleri (orman yeşili + buğday/toprak).
 
 ## Renk (token)
 Birincil: Green40 (#2F6B3C) / container Green90 · İkincil: Wheat40 / container Wheat90 ·

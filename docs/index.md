@@ -1,12 +1,12 @@
 ---
 type: moc
-title: Köyden — Bilgi Haritası
+title: SeçAl — Bilgi Haritası
 ai-first: true
-tags: [moc, index, koyden]
+tags: [moc, index, secal]
 updated: 2026-06-15
 ---
 
-# Köyden — Bilgi Haritası (MOC)
+# SeçAl — Bilgi Haritası (MOC)
 
 > Bu klasör (`docs/`) bir **Obsidian vault**'tur. Obsidian'da "Open folder as vault" ile
 > bu klasörü aç → tüm kararlar/mimari notları wikilink'lerle gezilir. Kaynak: GitHub

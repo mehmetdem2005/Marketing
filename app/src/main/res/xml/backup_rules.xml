@@ -4,6 +4,6 @@
   ISO 27001/27002 — kimlik bilgisi sızıntısı önlemi.
 -->
 <full-backup-content>
-    <exclude domain="sharedpref" path="koyden_secure_prefs.xml" />
-    <exclude domain="sharedpref" path="koyden_auth.xml" />
+    <exclude domain="sharedpref" path="secal_secure_prefs.xml" />
+    <exclude domain="sharedpref" path="secal_auth.xml" />
 </full-backup-content>

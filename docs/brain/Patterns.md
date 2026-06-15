@@ -8,7 +8,7 @@ ai-first: true
 # Patterns
 
 ## For future Claude
-Köyden'de tekrar eden, yeni iş yaparken izlenecek kalıplar. Yeni dikey dilim eklerken bunları kopyala.
+SeçAl'de tekrar eden, yeni iş yaparken izlenecek kalıplar. Yeni dikey dilim eklerken bunları kopyala.
 
 - **Hexagonal dikey dilim:** `core:domain` (saf Kotlin: model + repository **port** + use-case'ler) → `core:data` (Supabase adapter, `@Serializable` DTO + mapper, DI `@Binds`) → `feature:X` (ViewModel tek-yönlü `UiState` + Screen). Auth/Profil/Katalog hep böyle.
 - **Sonuç tipi:** Katmanlar `DataResult<T>` (Success/Failure[AppError]) döndürür; istisna UI'a sızmaz. `runResult { }` sarmalayıcısı `CancellationException`'ı yeniden fırlatır, gerisini `toAppError()`'a eşler.

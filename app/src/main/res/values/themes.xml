@@ -2,11 +2,11 @@
 <resources>
     <!--
       Compose-öncesi (system) tema. Asıl tasarım Material 3 token'ları ile
-      Compose tarafında (:core:designsystem) KoydenTheme üzerinden uygulanır.
+      Compose tarafında (:core:designsystem) SecalTheme üzerinden uygulanır.
     -->
-    <style name="Theme.Koyden" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.Secal" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowBackground">@color/koyden_window_background</item>
+        <item name="android:windowBackground">@color/secal_window_background</item>
     </style>
 </resources>

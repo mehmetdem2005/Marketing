@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.koyden.core.data"
+    namespace = "com.secal.core.data"
     compileSdk = 35
     defaultConfig { minSdk = 24 }
     compileOptions {

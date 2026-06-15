@@ -22,7 +22,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Koyden"
+rootProject.name = "Secal"
 
 // --- App ---
 include(":app")

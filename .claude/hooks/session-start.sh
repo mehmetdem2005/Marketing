@@ -1,5 +1,5 @@
 #!/bin/bash
-# Köyden — SessionStart hook
+# SeçAl — SessionStart hook
 #  1) Ajan skill'lerini (hafıza/bilgi yönetimi + motion) ~/.claude'a KALICI kurar/yeniler.
 #     Ortam ephemeral olduğu için her web oturumunda yeniden kurulurlar (idempotent).
 #  2) Skill yönlendirme rehberini (.claude/skill-routing.md) oturum bağlamına enjekte eder.
@@ -10,10 +10,10 @@ CLAUDE_HOME="${HOME}/.claude"
 SKILLS="$CLAUDE_HOME/skills"
 COMMANDS="$CLAUDE_HOME/commands"
 AGENTS="$CLAUDE_HOME/agents"
-CACHE="${HOME}/.cache/koyden-agent-skills"
-MARK="$SKILLS/.koyden-skills-installed"
+CACHE="${HOME}/.cache/secal-agent-skills"
+MARK="$SKILLS/.secal-skills-installed"
 
-log() { printf 'Köyden-hook: %s\n' "$*" >&2; }   # kurulum logu stderr'e (bağlamı kirletmesin)
+log() { printf 'SeçAl-hook: %s\n' "$*" >&2; }   # kurulum logu stderr'e (bağlamı kirletmesin)
 
 _clone() { # idempotent shallow clone-or-update
   local dir="$1" url="$2"

@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.koyden.feature.auth"
+    namespace = "com.secal.feature.auth"
     compileSdk = 35
     defaultConfig { minSdk = 24 }
     buildFeatures { compose = true }

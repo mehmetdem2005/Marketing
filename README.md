@@ -1,4 +1,4 @@
-# Köyden — Android Uygulaması
+# SeçAl — Android Uygulaması
 
 Köy/doğal/yerel ürünler pazaryeri. Mağazalar hesap açıp ürün yükler; alıcılar keşfeder,
 sepete ekler ve sipariş verir. Native **Android (Kotlin + Jetpack Compose)**, backend

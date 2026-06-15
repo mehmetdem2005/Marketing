@@ -59,7 +59,7 @@ tazelik · modern sadelik. Ton: sıcak, güvenilir, çağdaş ama topraktan besl
    önerilen domain varyantları (.com/.com.tr/.app + alternatif: get<isim>.com).
 3. En sonda net 1 öneri ve gerekçesi.
 
-Notlar: İngilizce ağırlıklı isimlerden kaçın. "Köyden" çalışma adımız; daha güçlü bir
+Notlar: İngilizce ağırlıklı isimlerden kaçın. "SeçAl" çalışma adımız; daha güçlü bir
 alternatif bulursan onu da değerlendir, bulamazsan bunu da finale koyabilirsin.
 ```
 

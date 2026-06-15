@@ -8,7 +8,7 @@ ai-first: true
 # Gotchas
 
 ## For future Claude
-Daha önce ısıran ve yine ısıracak tuzaklar (obsidian-mind kalıcı hafıza). Köyden Android +
+Daha önce ısıran ve yine ısıracak tuzaklar (obsidian-mind kalıcı hafıza). SeçAl Android +
 Supabase yığınında CI'ı yeşile çekerken yaşananlar. Yeni iş yapmadan önce buraya bak.
 
 - **Hilt + KSP component üretmiyor:** KSP ile `@HiltAndroidApp` root component'i (`Dagger*_HiltComponents_SingletonC`) üretilmiyordu (`kspDebugKotlin` "Did you forget to apply the Gradle Plugin?" + javac "cannot find symbol"). **Çözüm:** tüm Hilt modüllerini **KAPT**'a al (`kotlin-kapt` + `kapt(hilt.compiler)`). Yeni Hilt'li modül = KAPT kullan.
@@ -22,4 +22,13 @@ Supabase yığınında CI'ı yeşile çekerken yaşananlar. Yeni iş yapmadan ö
 - **`X.dp` özelliktir, fonksiyon değil:** `16.dp` (✓) / `16.dp()` (✗). `import androidx.compose.ui.unit.dp` unutma.
 - **@Composable yalnız composable bağlamında:** `motionDuration()` gibi @Composable çağrıları `AnimatedContent.transitionSpec` (non-composable lambda) içinde ÇAĞRILAMAZ — composable gövdede hesapla, değeri yakala.
 - **CI logları çok büyük:** `mcp__github__actions_list` ve job logları token sınırını aşar → dosyaya kaydedip `python slice`/grep ile oku; `get_job_logs` tail'i çoğu zaman temizlik adımını yakalar, asıl `e:`/`What went wrong` için tail'i büyüt.
-- **Repoda `main` yoktu:** Köyden repolarında varsayılan dal `claude/village-products-marketplace-c08a30`'di; `main` elle oluşturuldu.
+- **Repoda `main` yoktu:** SeçAl repolarında varsayılan dal `claude/village-products-marketplace-c08a30`'di; `main` elle oluşturuldu.
+
+## Repo-geneli paket rename (com.X → com.Y) — güvenli sıra
+Sıra önemli: (1) içerik sed (`koyden→secal`, `Koyden→Secal`, `Köyden→SeçAl`) tüm dosyalarda;
+(2) SONRA dizinleri taşı (`com/koyden`→`com/secal`); (3) `Koyden*.kt`→`Secal*.kt` dosya adları.
+Kapsam: kt/kts/xml/md/pro/yml/toml/sh/sample (yalnız koyden geçen dosyaları hedefle). Unutulmaz:
+`applicationId`, `namespace`, `rootProject.name`, manifest `android:name=".XApplication"`,
+`@style/Theme.X`, `@color/x_*`, pref dosya adları (`x_secure_prefs`). Doğrulama: işlem sonu
+`grep -rli koyden` + `grep -rl Köyden` = 0 olmalı. Kotlin'de dosya adı ≠ sınıf adı derlemeyi
+bozmaz ama temizlik için dosyalar da yeniden adlandırılır.

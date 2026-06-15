@@ -1,12 +1,12 @@
 ---
 type: roadmap
-title: Köyden — Faz Faz Mimari Yol Haritası
+title: SeçAl — Faz Faz Mimari Yol Haritası
 date: 2026-06-15
-tags: [roadmap, mimari, plan, koyden]
+tags: [roadmap, mimari, plan, secal]
 ai-first: true
 ---
 
-# Köyden (çalışma adı) — Faz Faz Mimari Yol Haritası
+# SeçAl (çalışma adı) — Faz Faz Mimari Yol Haritası
 
 ## For future Claude
 Pazaryeri ürününün uçtan uca faz planı. Her faz: **amaç · mimari (domain/data/feature + DB/RLS) ·
@@ -26,11 +26,11 @@ motion + TOGAF/ISO ile yapılır; CI yeşil → main merge → deploy. Kalite ç
 ## 🔜 Sıradaki fazlar
 
 ### Faz 3 — İsim & Marka Kimliği  *(isime ayrılmış faz)*
-- **Amaç:** "Köyden" çalışma adını değerlendirip kalıcı **isim + marka kimliğini** kilitlemek (özellikler büyümeden önce).
+- **Amaç:** "SeçAl" çalışma adını değerlendirip kalıcı **isim + marka kimliğini** kilitlemek (özellikler büyümeden önce).
 - **İş kalemleri:**
   - İsim adayları üret (10-15): anlam (köy/doğal/yerel/güven), söyleyiş, akılda kalıcılık, Türkçe uyum, olumsuz çağrışım taraması.
   - **Müsaitlik:** `.com`/`.com.tr` domain, Play Store paket adı (`com.<isim>...`), sosyal medya handle, marka/ticari iz (kaba tarama).
-  - Kısa liste (3) → değerlendirme matrisi → karar (ADR + supersedes "Köyden" çalışma adı).
+  - Kısa liste (3) → değerlendirme matrisi → karar (ADR + supersedes "SeçAl" çalışma adı).
   - **Marka kimliği:** logo yönü, renk paleti (tasarım token revizyonu), tipografi, ton/ses; `docs/marka-kilavuzu.md`.
   - **Teknik rename:** `applicationId`/`namespace`, `strings.xml`/uygulama adı, paketler, repo/docs başlıkları, Supabase proje etiketi (ref sabit kalır).
 - **Kalite kapısı:** marka kılavuzu vault'ta; rename sonrası CI yeşil; a11y kontrast (WCAG AA) yeni paletle.

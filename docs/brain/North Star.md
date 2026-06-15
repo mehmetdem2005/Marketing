@@ -8,10 +8,10 @@ ai-first: true
 # North Star
 
 ## For future Claude
-Köyden'in yönü ve güncel odağı (oturum başında oku). Yön değişince güncelle.
+SeçAl'in yönü ve güncel odağı (oturum başında oku). Yön değişince güncelle.
 
 ## Vizyon
-**Köyden** — köy/doğal/yöresel ürünlerin üreticiden (köy mağazası) doğrudan tüketiciye ulaştığı
+**SeçAl** — köy/doğal/yöresel ürünlerin üreticiden (köy mağazası) doğrudan tüketiciye ulaştığı
 iki-taraflı pazaryeri. **Trendyol kalitesi** çıta. Native Android (Jetpack Compose) + Supabase;
 admin dahil her şey mobil uygulamada.
 

@@ -1,4 +1,4 @@
-# Köyden — release shrink/obfuscate kuralları.
+# SeçAl — release shrink/obfuscate kuralları.
 # Supabase / ktor / kotlinx-serialization reflection korumaları.
 
 # kotlinx-serialization
@@ -8,9 +8,9 @@
 -keepclasseswithmembers class kotlinx.serialization.json.** { kotlinx.serialization.KSerializer serializer(...); }
 
 # @Serializable veri sınıfları
--keep,includedescriptorclasses class com.koyden.**$$serializer { *; }
--keepclassmembers class com.koyden.** { *** Companion; }
--keepclasseswithmembers class com.koyden.** { kotlinx.serialization.KSerializer serializer(...); }
+-keep,includedescriptorclasses class com.secal.**$$serializer { *; }
+-keepclassmembers class com.secal.** { *** Companion; }
+-keepclasseswithmembers class com.secal.** { kotlinx.serialization.KSerializer serializer(...); }
 
 # ktor
 -keep class io.ktor.** { *; }

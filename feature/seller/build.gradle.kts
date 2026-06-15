@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.koyden.feature.seller"
+    namespace = "com.secal.feature.seller"
     compileSdk = 35
     defaultConfig { minSdk = 24 }
     buildFeatures { compose = true }

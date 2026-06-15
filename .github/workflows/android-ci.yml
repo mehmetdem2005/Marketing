@@ -28,11 +28,11 @@ jobs:
   quality:
     name: Kalite (detekt) + Test + Build
     runs-on: ubuntu-latest
-    # Köyden Supabase bağlantısı → BuildConfig (anon key & URL publishable; repo variable).
+    # SeçAl Supabase bağlantısı → BuildConfig (anon key & URL publishable; repo variable).
     # Gerçek sırlar (service_role vb.) burada DEĞİL.
     env:
-      KOYDEN_SUPABASE_URL: ${{ vars.KOYDEN_SUPABASE_URL }}
-      KOYDEN_SUPABASE_ANON_KEY: ${{ vars.KOYDEN_SUPABASE_ANON_KEY }}
+      SECAL_SUPABASE_URL: ${{ vars.SECAL_SUPABASE_URL }}
+      SECAL_SUPABASE_ANON_KEY: ${{ vars.SECAL_SUPABASE_ANON_KEY }}
     steps:
       - uses: actions/checkout@v4
 

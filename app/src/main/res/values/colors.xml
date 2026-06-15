@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Sistem teması/launcher için temel renkler; Compose token'ları designsystem'de. -->
-    <color name="koyden_window_background">#FFFBF7F0</color>
+    <color name="secal_window_background">#FFFBF7F0</color>
     <color name="ic_launcher_background">#FF2F6B3C</color>
 </resources>

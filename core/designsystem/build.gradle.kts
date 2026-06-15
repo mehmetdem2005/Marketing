@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.koyden.designsystem"
+    namespace = "com.secal.designsystem"
     compileSdk = 35
     defaultConfig { minSdk = 24 }
     buildFeatures { compose = true }

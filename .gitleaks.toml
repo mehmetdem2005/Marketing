@@ -1,6 +1,6 @@
-# Köyden gitleaks yapılandırması.
+# SeçAl gitleaks yapılandırması.
 # Varsayılan kural setini temel al; depo-özel istisnaları buraya ekle.
-title = "Koyden gitleaks config"
+title = "Secal gitleaks config"
 
 [extend]
 useDefault = true

@@ -1,9 +1,9 @@
-# Köyden — Kurumsal Mimari (EA / TOGAF)
+# SeçAl — Kurumsal Mimari (EA / TOGAF)
 
 ## 0. Doküman Kontrolü (ISO/IEC/IEEE 42010 — Architecture Description)
-- **System-of-interest:** Köyden — köy/doğal/yerel ürünler pazaryeri (native Android + Supabase).
+- **System-of-interest:** SeçAl — köy/doğal/yerel ürünler pazaryeri (native Android + Supabase).
 - **Kapsam:** Mobil uygulama (Kotlin/Compose), backend (Supabase: Auth + Postgres/RLS + Storage + Edge), ödeme entegrasyonu (Stripe — yönlendirme, tahsilat kapalı).
-- **Birincil mimar:** Köyden çekirdek ekibi.
+- **Birincil mimar:** SeçAl çekirdek ekibi.
 - **Durum:** Taslak · Faz 0 (Yönetişim & İskelet).
 - **Sürüm notu:** İlk sürüm — ADM Preliminary→H iskeleti + Requirements Management kuruldu.
 - **Standart sürümleri:** TOGAF Standard 10th Edition (2022) · ISO/IEC/IEEE 42010:2022 · ISO/IEC 25010:2023 · ISO/IEC 25012:2024 · ISO/IEC 27001:2022 + 27002:2022 · ISO/IEC/IEEE 29148:2018 · ISO 9241-110:2020.
@@ -274,7 +274,7 @@ SemVer (versionName). DB migration'ları yalnız açık izinle canlıya uygulan�
 
 ## 10. Requirements Management (MERKEZ)
 
-### 10.1 ISO/IEC 25010 — Kalite Modeli (Köyden NFR'leri)
+### 10.1 ISO/IEC 25010 — Kalite Modeli (SeçAl NFR'leri)
 | Karakteristik | Hedef | Ölçüt |
 |---|---|---|
 | İşlevsel Uygunluk | Yüksek | Kabul kriterleri / use-case kapsama |

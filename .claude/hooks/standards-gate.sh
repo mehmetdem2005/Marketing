@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Stop hook — STANDART KAPISI (Köyden / Android).
+# Stop hook — STANDART KAPISI (SeçAl / Android).
 # Tur biterken:
 #   1) GÜVENLİK: gitleaks ile sır taraması (varsa) — sır bulunursa BLOKLA.
 #   2) KALİTE: gradlew + Android SDK varsa detekt (a11y/lint/format) — sorun varsa BLOKLA.
@@ -15,8 +15,8 @@ fail=""
 
 # ---- 1) Güvenlik: sır taraması ----
 if command -v gitleaks >/dev/null 2>&1; then
-  if ! gitleaks detect --no-banner --redact -s "$dir" >/tmp/koyden-gitleaks.log 2>&1; then
-    fail="${fail}\n── gitleaks (SIR BULUNDU) ──\n$(grep -E 'Finding|File|Secret|RuleID' /tmp/koyden-gitleaks.log | head -20)"
+  if ! gitleaks detect --no-banner --redact -s "$dir" >/tmp/secal-gitleaks.log 2>&1; then
+    fail="${fail}\n── gitleaks (SIR BULUNDU) ──\n$(grep -E 'Finding|File|Secret|RuleID' /tmp/secal-gitleaks.log | head -20)"
   fi
 fi
 

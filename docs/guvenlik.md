@@ -1,4 +1,4 @@
-# Köyden — Güvenlik (ISO 27001/27002 + OWASP MASVS)
+# SeçAl — Güvenlik (ISO 27001/27002 + OWASP MASVS)
 
 ## 1. Sır Politikası
 - Sır **repoda tutulmaz**. `local.properties`, `*.keystore`, `.env` → `.gitignore`.

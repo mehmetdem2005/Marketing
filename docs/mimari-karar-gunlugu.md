@@ -1,4 +1,4 @@
-# Köyden — Mimari Karar Günlüğü (ADR)
+# SeçAl — Mimari Karar Günlüğü (ADR)
 
 > Her anlamlı mimari karar burada kayıt altına alınır. Çelişen kararlar **"supersedes"**
 > ile uzlaştırılır (self-rewriting knowledge base). Format: Durum · Bağlam · Karar ·
@@ -15,7 +15,11 @@
 - ADR-008 — Multi-repo yapı (marketing = app+docs, marketing-2 = Supabase)
 - ADR-009 — Tasarım sistemi: motion token sistemi + bileşen kütüphanesi + 4-durum scaffold
 - ADR-010 — Kimlik: Supabase Auth (e-posta/şifre + Google ID token / Credential Manager)
-- ADR-011 — Altyapı provisioning: Köyden Supabase projesi + sır yönetimi + sunucu-tier kararı (açık)
+- ADR-011 — Altyapı provisioning: SeçAl Supabase projesi + sır yönetimi + sunucu-tier kararı (açık)
+- ADR-012 — Faz 2: Profil özelliği (hexagonal dikey dilim, RLS self-erişim)
+- ADR-013 — Faz 2: Katalog/keşif (çok-repolu dikey dilim, public read)
+- ADR-014 — Marka adı: **SeçAl** + tam paket rename (com.koyden → com.secal)
+- ADR-015 — Faz 4: Satıcı (mağaza & ürün yönetimi + görsel upload)
 
 ---
 
@@ -122,12 +126,12 @@
 - **Değerlendirilen alternatifler:** Yalnız e-posta/şifre (reddedildi: onboarding hızı);
   Firebase Auth (reddedildi: Supabase ile tek backend tercihi — ADR-002).
 
-## ADR-011 — Altyapı provisioning: Köyden Supabase projesi + sır yönetimi + sunucu-tier (açık)
+## ADR-011 — Altyapı provisioning: SeçAl Supabase projesi + sır yönetimi + sunucu-tier (açık)
 - **Durum:** Kabul (provisioning) · sunucu-tier kararı AÇIK · TOGAF Phase F/G · ISO 27001/27002
 - **Bağlam:** Android uygulaması (ADR-001/002) çalışan bir Supabase projesine ihtiyaç duyuyor
   (auth/DB doğrudan Supabase). Kullanıcı ayrıca "bir sunucu gerekiyor" diyerek Render'ı gündeme getirdi.
 - **Karar:**
-  - **Supabase projesi `koyden`** oluşturuldu (ref `yampwgdlqncdgwjslige`, eu-central-1, free).
+  - **Supabase projesi `secal`** oluşturuldu (ref `yampwgdlqncdgwjslige`, eu-central-1, free).
     `0001_init` şeması uygulandı (profiles/PII + addresses + RLS + handle_new_user). Detay:
     `docs/altyapi-kaynaklar.md`.
   - **Sır yönetimi:** Whenly'nin Render'inden (kullanıcı izni + sağladığı Render key ile) yalnız
@@ -189,6 +193,25 @@
 
 ---
 
+## ADR-014 — Marka adı: SeçAl + tam paket rename
+- **Durum:** Kabul · TOGAF Phase A/H (vizyon + governance) · ISO 9241 (akılda kalıcılık)
+- **Bağlam:** Ürün geçici "Köyden" kod-adıyla geliştirildi; kalıcı marka adı gerekiyordu. Aday
+  setleri (köy/doğa temalı) kullanıcıya "itici" geldi; isim LLM brief'i (`docs/marka/isim-promptu.md`)
+  ile dışarıda üretildi ve kullanıcı **SeçAl** ("Seç + Al") adını seçti.
+- **Karar:**
+  - Marka adı **SeçAl** — emir kipli, eylem-odaklı (seç → al), pazaryeri çağrışımı net, kısa, akılda kalıcı.
+  - **Tam rename** (kullanıcı kararı, kapsam sorusu): `com.koyden` → `com.secal` (89 dosya + 14 paket
+    dizini taşındı), bileşenler `Koyden* → Secal*` (Button/Card/TextField/Theme/Application/NavHost),
+    `applicationId`/`namespace` = `com.secal.*`, `rootProject.name = Secal`, pref dosyaları
+    `secal_secure_prefs`/`secal_auth`, `app_name = SeçAl`, görünen tüm "Köyden" → "SeçAl".
+    Tüm dokümanlar (EA/ISO/yol-haritası/brain) dahil. Doğrulama: repo'da kalan `koyden`/`Köyden` = 0.
+- **Sonuçlar:** Kod ve marka tam tutarlı; pre-release olduğundan paket/pref değişimi mevcut kullanıcıyı
+  etkilemez. Geri dönüş zahmetli olduğu için **en ucuz an** (MVP iskeleti) tercih edildi.
+- **Değerlendirilen alternatifler:** Sadece marka string'i + iç `com.koyden` kod-adı (reddedildi:
+  kullanıcı tam tutarlılık istedi); köy/doğa temalı adlar (reddedildi: "itici").
+
+---
+
 ## ADR-015 — Faz 4: Satıcı (mağaza & ürün yönetimi + görsel upload)
 - **Durum:** Kabul · TOGAF Phase C/D · ISO 25010 · (ADR-014 isim kararına ayrıldı)
 - **Bağlam:** İki-taraflı pazaryeri — satıcı mağaza açıp ürün eklemeli; katalog gerçek ürünle dolsun.
@@ -207,4 +230,4 @@
 ---
 
 **Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..015 kilitlenen
-kararları belgeler (ADR-014 = isim kararı, seçim sonrası) · supersedes mekanizması tanımlı.
+kararları belgeler (ADR-014 = marka adı **SeçAl**) · supersedes mekanizması tanımlı.

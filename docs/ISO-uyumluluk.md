@@ -1,6 +1,6 @@
-# Köyden — ISO Uyumluluk Eşlemesi
+# SeçAl — ISO Uyumluluk Eşlemesi
 
-Bu doküman, uygulanan ISO standartlarını ve Köyden'deki karşılıklarını listeler.
+Bu doküman, uygulanan ISO standartlarını ve SeçAl'deki karşılıklarını listeler.
 Ayrıntılar: `EA-TOGAF-mimari.md` (§10 Requirements Management) ve `guvenlik.md`.
 
 ## ISO/IEC/IEEE 42010:2022 — Architecture Description

@@ -1,4 +1,4 @@
-# Köyden detekt yapılandırması — buildUponDefaultConfig=true ile birlikte çalışır.
+# SeçAl detekt yapılandırması — buildUponDefaultConfig=true ile birlikte çalışır.
 # Kalite + bakım + (formatting eklentisi ile) stil kapısı.
 
 build:
@@ -47,7 +47,7 @@ exceptions:
 
 naming:
   active: true
-  # Çok bildirimli dosyalar (ör. KoydenButton.kt = fun + enum) kabul edilir.
+  # Çok bildirimli dosyalar (ör. SecalButton.kt = fun + enum) kabul edilir.
   MatchingDeclarationName:
     active: false
   FunctionNaming:

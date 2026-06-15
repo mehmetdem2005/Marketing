@@ -5,16 +5,16 @@ tags: [altyapi, supabase, render, secrets]
 ai-first: true
 ---
 
-# Köyden — Altyapı & Kaynaklar
+# SeçAl — Altyapı & Kaynaklar
 
 ## For future Claude
-Köyden'in canlı bulut kaynakları ve sır yönetiminin tek kaydı. Supabase projesi
+SeçAl'in canlı bulut kaynakları ve sır yönetiminin tek kaydı. Supabase projesi
 provisioned (Android doğrudan buna bağlanır — ADR-002/010). **Sır DEĞERLERİ bu repoda
 asla bulunmaz**; yalnız non-secret tanımlayıcılar (proje ref, URL) + sırların *nerede*
 durduğu yazılır. Yeni kaynak/karar → burayı güncelle + ADR yaz (self-rewriting; çelişki → supersedes).
 
-## Supabase — Köyden projesi (CANLI)
-- **Proje adı:** `koyden`
+## Supabase — SeçAl projesi (CANLI)
+- **Proje adı:** `secal`
 - **Ref / Project ID:** `yampwgdlqncdgwjslige`  *(public tanımlayıcı)*
 - **URL:** `https://yampwgdlqncdgwjslige.supabase.co`  *(public; istemciye gömülür)*
 - **Bölge:** `eu-central-1` (Frankfurt) · **Org:** `mehmetdem2005's Org` (`ghdmtojktewtwcyiazev`)
@@ -23,10 +23,10 @@ durduğu yazılır. Yeni kaynak/karar → burayı güncelle + ADR yaz (self-rewr
   + `handle_new_user` trigger + `user_role` enum. (Kaynak: `marketing-2/supabase/migrations/`)
 - **Anahtarlar (anon / service_role / db_pass):** repoda DEĞİL. Container `/home/user/.secrets/`
   altında (oturumluk) + kalıcı kullanım için **CI secret / local.properties**'e girilir
-  (`KOYDEN_SUPABASE_URL`, `KOYDEN_SUPABASE_ANON_KEY`). service_role yalnız sunucu/Edge tarafında.
+  (`SECAL_SUPABASE_URL`, `SECAL_SUPABASE_ANON_KEY`). service_role yalnız sunucu/Edge tarafında.
 
 ## Render
-- **Hesap:** My Workspace (`tea-...`, mehmetdem2005). Köyden için **henüz servis oluşturulmadı.**
+- **Hesap:** My Workspace (`tea-...`, mehmetdem2005). SeçAl için **henüz servis oluşturulmadı.**
 - **Durum:** Sunucu tarafı ihtiyacı (Stripe webhook / zamanlı iş / admin) **Supabase Edge Functions**
   ile karşılanabilir (mevcut `marketing-2/supabase/functions`). Ayrı **Render Node servisi**
   opsiyonu açık — backend kapsamı netleşince karar (ADR ile). Android mimarisi DEĞİŞMEDİ.
@@ -41,7 +41,7 @@ durduğu yazılır. Yeni kaynak/karar → burayı güncelle + ADR yaz (self-rewr
 ## Durum (2026-06-15)
 - **CI YEŞİL** ✅ (`android-ci.yml`, commit `ff99638`): gitleaks + detekt + lint + test +
   assembleDebug. **Faz 1** (tasarım sistemi + Supabase Auth) + **Faz 2** (Profil + RLS) derleniyor.
-- **Supabase bağlı & çalışıyor:** `KOYDEN_SUPABASE_URL` + `KOYDEN_SUPABASE_ANON_KEY` GitHub Actions
+- **Supabase bağlı & çalışıyor:** `SECAL_SUPABASE_URL` + `SECAL_SUPABASE_ANON_KEY` GitHub Actions
   **variable** (anon/URL publishable) → CI build'inde BuildConfig'e geçiyor. service_role yalnız
   container/.secrets. Not: build.gradle değerleri `.trim()` eder (variable'da kaçak newline
   "unclosed string literal"e yol açmıştı — çözüldü).
@@ -64,6 +64,6 @@ durduğu yazılır. Yeni kaynak/karar → burayı güncelle + ADR yaz (self-rewr
   vault dosyaları kullanıcının kendi Obsidian'ında açılır.
 
 ## Açık işler
-- [ ] Yerel geliştirme: `local.properties`'e KOYDEN_SUPABASE_URL/ANON_KEY (CI variable'dan kopyala).
+- [ ] Yerel geliştirme: `local.properties`'e SECAL_SUPABASE_URL/ANON_KEY (CI variable'dan kopyala).
 - [ ] Sunucu tarafı kararı: Supabase Edge vs Render Node (kapsam netleşince, ADR).
 - [ ] Kullanıcı: Whenly'den alınan token'ları (render.key, SUPABASE_ACCESS_TOKEN, GITHUB_TOKEN) revoke et.
