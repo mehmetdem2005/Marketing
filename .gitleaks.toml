@@ -12,6 +12,8 @@ description = "Yanlış-pozitif önleme"
 paths = [
   '''local\.properties\.sample''',
   '''.*\.example$''',
+  # Supabase anon key PUBLIC istemci kimliğidir (RLS ile korunur); build için gradle.properties'te.
+  '''gradle\.properties''',
 ]
 regexes = [
   '''YOUR_SUPABASE_URL''',
