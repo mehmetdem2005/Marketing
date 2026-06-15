@@ -12,8 +12,9 @@ import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.Columns
 import io.github.jan.supabase.postgrest.query.Order
 import kotlinx.coroutines.CancellationException
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,12 +23,6 @@ internal data class CartItemRowDto(
     val id: String,
     val quantity: Int,
     val products: ProductRowDto,
-)
-
-@Serializable
-internal data class AddToCartParams(
-    @SerialName("p_product_id") val productId: String,
-    @SerialName("p_qty") val qty: Int,
 )
 
 /** [CartRepository] Supabase implementasyonu. RLS sepeti sahibine kısıtlar. */
@@ -47,7 +42,13 @@ class SupabaseCartRepository @Inject constructor(
     }
 
     override suspend fun addToCart(productId: String, quantity: Int): DataResult<Unit> = runResult {
-        db.rpc("add_to_cart", AddToCartParams(productId = productId, qty = quantity))
+        db.rpc(
+            "add_to_cart",
+            buildJsonObject {
+                put("p_product_id", productId)
+                put("p_qty", quantity)
+            },
+        )
         Unit
     }
 

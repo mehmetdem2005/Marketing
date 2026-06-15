@@ -37,3 +37,8 @@ bozmaz ama temizlik için dosyalar da yeniden adlandırılır.
 Bir composable'ı yeniden yazarken eski bir callback (ör. `onBack`) artık çağrılmıyorsa detekt
 `UnusedParameter` ile turu kırar (CI'da `:feature:X:detekt FAILED`). Çözüm: parametreyi gerçekten
 kullan (ör. TopAppBar geri ikonu) ya da imzadan + çağıran graf'tan kaldır. Boş bırakma.
+
+## supabase-kt rpc(): parametreler JsonObject olmalı (3.x)
+`postgrest.rpc("fn", parameters)` overload'u `JsonObject` bekler — keyfi `@Serializable` veri sınıfı
+DEĞİL ("None of the following candidates is applicable"). Çözüm: `buildJsonObject { put("p_x", v) }`
+ile parametre kur. RPC argüman adları SQL fonksiyon imzasıyla birebir (`p_product_id`, `p_qty`).
