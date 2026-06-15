@@ -70,3 +70,11 @@ jobs:
             **/build/reports/lint-results-*.html
             **/build/reports/tests/**
           if-no-files-found: ignore
+
+      - name: Debug APK yükle (telefona kurmak için indir)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: secal-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
