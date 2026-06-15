@@ -23,6 +23,7 @@
 - ADR-016 — Faz 5a: Sepet (cart_items + atomik add_to_cart RPC, PII/RLS)
 - ADR-017 — UI: Trendyol-kalıbı navigasyon (M3 alt menü + zengin Anasayfa + Hesabım)
 - ADR-018 — Faz 5b: Sipariş (orders/order_items + place_order RPC, fiyat snapshot)
+- ADR-019 — Ödeme/escrow stratejisi: COD (MVP) → iyzico Pazaryeri (lisanslı PSP escrow)
 
 ---
 
@@ -293,5 +294,26 @@
 
 ---
 
-**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..018 kilitlenen
+## ADR-019 — Ödeme/escrow stratejisi: COD → lisanslı PSP Pazaryeri (escrow PSP'de)
+- **Durum:** Kabul · TOGAF Phase B+C+D · ISO 25010 Security/Reliability · 27002 · genişletir ADR-007.
+  Tam mimari: [[siparis-odeme-mimarisi]]. Değişiklik sınıfı: Yeniden-mimari (ödeme yeteneği).
+- **Bağlam (kullanıcı tespiti):** Erken aşamada platforma güven yok. (A) Parayı platform tutamaz —
+  hem satıcı güvenmez hem **yasal değil** (TR 6493 sK — para tutmak Ödeme Kuruluşu lisansı ister).
+  (B) Parayı doğrudan satıcıya göndermek alıcıyı korumasız bırakır (göndermeme riski).
+- **Karar:**
+  - **Faz A (MVP):** **Kapıda Ödeme (COD)** — para akışı YOK; platform parayı hiç görmez (sıfır lisans/risk).
+    Mevcut `place_order` (pending) buna uygun. Güven + hacim inşa et.
+  - **Faz B:** **iyzico Pazaryeri** (lisanslı PSP). Alıcı→PSP öder, **escrow'u PSP tutar** (lisanslı),
+    teslim onayında satıcıya payout + komisyon **split**. Platform parayı **custody etmez** → lisans gerekmez.
+    Satıcılar sub-merchant (IBAN/KYC PSP'de). `PaymentGateway` portu + `IyzicoMarketplaceGateway` adapter;
+    ödeme başlatma/webhook **Edge Function** (PSP secret server-side; kart verisi istemciye değmez, PCI SAQ-A).
+  - **Kendi escrow'umuz ASLA** (yasal değil).
+- **Sonuçlar:** Güven (lisanslı PSP) + alıcı koruması (escrow) + yasal uyum + komisyon, tek modelde.
+  Faz B'de orders.status genişler (paid/preparing/completed/refunded) + payments/payouts/sub-merchant tabloları.
+- **Değerlendirilen alternatifler:** Kendi escrow (reddedildi: lisans/yasal + güven) · doğrudan satıcıya
+  (reddedildi: alıcı koruması yok) · sadece online tahsilat baştan (ertelendi: önce COD ile güven).
+
+---
+
+**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..019 kilitlenen
 kararları belgeler (ADR-014 = marka adı **SeçAl**) · supersedes mekanizması tanımlı.
