@@ -49,7 +49,7 @@ class SupabaseProfileRepository @Inject constructor(
 
     private fun currentUserOrThrow() =
         client.auth.currentUserOrNull()
-            ?: throw IllegalStateException("Oturum bulunamadı")
+            ?: error("Oturum bulunamadı")
 
     private inline fun <T> runResult(block: () -> T): DataResult<T> =
         try {
