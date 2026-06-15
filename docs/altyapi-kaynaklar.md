@@ -45,6 +45,22 @@ durduğu yazılır. Yeni kaynak/karar → burayı güncelle + ADR yaz (self-rewr
   **variable** olarak tanımlı (anon/URL publishable; gerçek sır değil) → CI build'inde BuildConfig'e
   geçiyor. service_role yalnız container/.secrets (sunucu/Edge için).
 
+## Obsidian vault & yerel arama (qmd)
+- **`docs/` artık bir Obsidian vault'tur** (`.obsidian/app.json` + [[index]] MOC + [[_CLAUDE]]
+  operating manual). Obsidian'da "Open folder as vault" → `docs/`. Senkron köprüsü = GitHub repo
+  (sandbox geçici; vault dosyaları repoda kalıcı).
+- **Semantik/BM25 arama:** `@tobilu/qmd` (npm global). Yeniden kurulum (yeni/temiz ortam):
+  ```
+  npm install -g @tobilu/qmd
+  qmd collection add <repo>/docs   # 'docs' koleksiyonu
+  qmd update                       # indeksle (BM25 — offline çalışır)
+  qmd embed                        # vektör (embeddinggemma modeli indirir — semantik arama)
+  qmd search "..." -c docs         # veya: qmd query "..."
+  ```
+  qmd index/cache `~/.cache/qmd/` altındadır (türetilmiş veri, repoda değil).
+- **Not:** Obsidian **masaüstü uygulaması** bu başsız/geçici sandbox'ta çalışmaz (GUI yok);
+  vault dosyaları kullanıcının kendi Obsidian'ında açılır.
+
 ## Açık işler
 - [ ] Yerel geliştirme: `local.properties`'e KOYDEN_SUPABASE_URL/ANON_KEY (CI variable'dan kopyala).
 - [ ] Sunucu tarafı kararı: Supabase Edge vs Render Node (kapsam netleşince, ADR).
