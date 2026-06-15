@@ -61,6 +61,44 @@ SeçAl bal/peynir/zeytinyağı/reçel... satıyor → **5996 sayılı Veteriner 
 4. Büyürken **VERBİS**, marka tescili, e-Fatura.
 5. Ölçeklenince ETK eşik yükümlülükleri.
 
+## F-2) Satıcı tipi: ESNAF (üretici değil) — gıda tarafı basitleşir
+Satıcılar **kahveci, turşucu, kuruyemişçi, aktar** = perakende gıda **esnafı** (üretici değil).
+- Bunlar zaten **dükkân sahibi** → büyük olasılıkla **İşletme Kayıt Belgesi + belediye ruhsatı** mevcut.
+  Platformun işi: bu mevcut belgeyi **kayıt sırasında istemek** (yeni belge çıkarttırmak değil).
+- **İstisna:** kendi yaptıkları ürünü satan (ev yapımı turşu/kavurma vb.) varsa o ürün için üretim
+  kaydı gerekir — ama paketli ürün **yeniden satışı** standart perakendedir.
+- **Platform sorumluluğu** (ETK): belgesiz/etiketsiz gıda satışına izin verme → satıcı onboarding'de
+  "İşletme Kayıt Belge No" zorunlu alan + belge yükleme. (Maliyet satıcıda, zaten varlar.)
+
+## G-2) MALİYET TAHMİNİ (2026, kaba — enflasyonla değişir, teyit al)
+**Tek seferlik (başlangıç):**
+| Kalem | Tahmini (TL) | Not |
+|---|---|---|
+| Limited şirket kuruluş | 10.000–25.000 | Şahıs şirketi ~2.000–5.000 (pazaryeri için Ltd önerilir) |
+| Yasal metinler (sözleşme+KVKK+mesafeli) | 15.000–50.000 | Avukat; şablon+kontrol daha ucuz |
+| Marka tescili (TÜRKPATENT) | 5.000–15.000 | Vekil + 1 sınıf resmi ücret |
+| **ETBİS kaydı** | **0** | e-Devlet, ücretsiz |
+| KVKK/VERBİS kaydı | 0 | Kayıt ücretsiz; danışman ist-bağlı 10–30k |
+| **Başlangıç toplamı** | **~30.000–90.000** | Marka ertelenebilir → alt sınır düşer |
+
+**Süreklilik (aylık/yıllık):**
+- Mali müşavir: ~3.000–8.000 TL/ay (hacme göre)
+- iyzico komisyon: işlem başına ~%2.5–4 + sabit ücret → **cebinden çıkmaz, satıştan kesilir** (kuruluş ücreti ~0)
+- Sunucu/Supabase/Render: başta ücretsiz tier → büyüyünce ~birkaç bin TL/ay
+
+> **Faz A (kapıda ödeme) ile** ödeme komisyonu bile yok; gerçek başlangıç maliyeti **şirket + ETBİS + sözleşmeler** ≈ **30–90k TL** + mali müşavir.
+
+## H-2) "Kendi ödeme lisansın olsa" senaryosu (iyzico yerine)
+Avantaj: parayı kendin tutar/escrow yaparsın, PSP komisyonu vermezsin, akışa tam hâkimsin.
+**Ama bariyer çok yüksek (6493 sK, TCMB):**
+- **Ödeme Kuruluşu** asgari sermaye: **~milyonlarca TL** (yönetmelikle, enflasyonla güncellenir;
+  ödeme kuruluşu için on milyon TL mertebesi, **elektronik para kuruluşu** daha da yüksek).
+- + bağımsız denetim, uyum/risk personeli, bilgi güvenliği denetimi (TS/ISO), TCMB başvuru süreci **aylar–yıl**.
+- + sürekli raporlama/denetim yükü.
+→ **Erken aşamada gerçekçi değil.** Doğru sıra: **iyzico ile başla → ciddi hacme ulaşınca** kendi lisansını
+(veya lisanslı bir kuruluşla ortaklık/satın alma) **stratejik** olarak değerlendir. (Trendyol/Hepsiburada
+büyüdükten sonra kendi ödeme şirketlerini kurdu — aynı yol.)
+
 ---
 **Standartlar:** ISO 27001/27002 (KVKK/veri) · 29148 (uyum gereksinim izlenebilirliği) · TOGAF Phase B
-(iş/uyum kısıtları) · P5 (güvenlik/uyum). **Hukuki teyit zorunlu (avukat + mali müşavir).**
+(iş/uyum kısıtları) · P5 (güvenlik/uyum). **Hukuki teyit zorunlu (avukat + mali müşavir).** Rakamlar tahmindir.
