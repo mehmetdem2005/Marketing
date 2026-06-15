@@ -32,3 +32,4 @@ Format: `## [YYYY-MM-DD] aksiyon | açıklama`.
 ## [2026-06-15] feat | UI yeniden tasarım (ADR-017): M3 alt menü (Anasayfa/Keşfet/Sepet/Hesabım) + zengin Anasayfa (arama+banner+kategori şeridi+öne çıkan ürünler) + Hesabım menüsü. HomePlaceholder kaldırıldı. Trendyol kalıbı. Kullanıcı geri bildirimi üzerine.
 ## [2026-06-15] merge | UI yeniden tasarım (ADR-017) yeşil → main. Alt menü + Anasayfa + Hesabım canlı. Yeni APK artifact hazır.
 ## [2026-06-15] feat | Faz 5b Sipariş (ADR-018): orders/order_items + place_order RPC (M2 0004 canlıda), domain/data/feature:order (Siparişlerim+detay), sepet checkout, Hesabım→Siparişlerim.
+## [2026-06-15] chore | Agent skill'leri repoya kuruldu (.claude/skills): GitHub'dan compose-expert (aldefy) + android-kotlin (Drjacky/ninja) Kotlin/Compose skill'leri; tasarım/motion skill'leri (design-standards, web-design-advanced, ui-ux-advanced, motion-design) mse-auto'dan taşındı. Kullanıcı talebi.
