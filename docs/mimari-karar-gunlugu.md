@@ -189,5 +189,22 @@
 
 ---
 
-**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..013 kilitlenen
-kararları belgeler · supersedes mekanizması tanımlı (henüz supersede edilen karar yok).
+## ADR-015 — Faz 4: Satıcı (mağaza & ürün yönetimi + görsel upload)
+- **Durum:** Kabul · TOGAF Phase C/D · ISO 25010 · (ADR-014 isim kararına ayrıldı)
+- **Bağlam:** İki-taraflı pazaryeri — satıcı mağaza açıp ürün eklemeli; katalog gerçek ürünle dolsun.
+  Mevcut 0002_catalog şeması zaten satıcı-yazma RLS'ine sahip (owns_store) → **yeni migration gerekmez**.
+- **Karar:**
+  - `install(Storage)` (Supabase) — `product-images` bucket'a görsel upload; public URL ürüne işlenir.
+  - domain `SellerRepository` (getMyStore, createStore, getMyProducts, createProduct, uploadProductImage)
+    + `NewProduct` taslağı → data `SupabaseSellerRepository` (insert+select, slug üretimi, Storage upload;
+    katalog DTO/PRODUCT_COLUMNS modül-içi `internal` yeniden kullanılır) → `feature:seller`
+    (SellerViewModel faz-makinesi [Loading/NeedsStore/Ready/Error]; StoreSetupForm; ProductList;
+    AddProduct: kategori filtre + fiyat parse [kuruş] + **PickVisualMedia** görsel seçici → upload).
+  - Navigasyon: home → "Satıcı paneli" → mağaza kur/ürün listesi → ürün ekle. ON_RESUME'da liste tazelenir.
+- **Sonuçlar:** Satıcı mağaza açıp görselli ürün yayınlayabilir; ürün katalogda görünür. Rol yükseltme
+  (buyer→seller) RLS'te mağaza-sahipliğiyle örtüldü; ayrı rol kapısı Faz: admin'de.
+
+---
+
+**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..015 kilitlenen
+kararları belgeler (ADR-014 = isim kararı, seçim sonrası) · supersedes mekanizması tanımlı.

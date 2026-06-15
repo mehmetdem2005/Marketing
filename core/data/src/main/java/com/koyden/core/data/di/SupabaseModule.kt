@@ -4,9 +4,11 @@ import com.koyden.core.data.auth.SupabaseAuthRepository
 import com.koyden.core.data.auth.SupabaseConfig
 import com.koyden.core.data.catalog.SupabaseCatalogRepository
 import com.koyden.core.data.profile.SupabaseProfileRepository
+import com.koyden.core.data.seller.SupabaseSellerRepository
 import com.koyden.core.domain.auth.AuthRepository
 import com.koyden.core.domain.catalog.CatalogRepository
 import com.koyden.core.domain.profile.ProfileRepository
+import com.koyden.core.domain.seller.SellerRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -16,6 +18,7 @@ import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.storage.Storage
 import javax.inject.Singleton
 
 /**
@@ -34,7 +37,8 @@ object SupabaseModule {
             supabaseKey = config.anonKey,
         ) {
             install(Auth)        // oturum kalıcılığı + token yenileme (auth-kt varsayılan)
-            install(Postgrest)   // RLS korumalı veri erişimi (sonraki fazlar)
+            install(Postgrest)   // RLS korumalı veri erişimi
+            install(Storage)     // ürün görselleri (product-images bucket)
         }
 }
 
@@ -54,4 +58,8 @@ abstract class AuthBindingModule {
     @Binds
     @Singleton
     abstract fun bindCatalogRepository(impl: SupabaseCatalogRepository): CatalogRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindSellerRepository(impl: SupabaseSellerRepository): SellerRepository
 }

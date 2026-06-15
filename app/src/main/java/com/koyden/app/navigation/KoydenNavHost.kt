@@ -24,6 +24,8 @@ import com.koyden.feature.catalog.navigation.CatalogRoutes
 import com.koyden.feature.catalog.navigation.catalogGraph
 import com.koyden.feature.profile.navigation.ProfileRoutes
 import com.koyden.feature.profile.navigation.profileScreen
+import com.koyden.feature.seller.navigation.SellerRoutes
+import com.koyden.feature.seller.navigation.sellerGraph
 
 private const val HOME_ROUTE = "home"
 
@@ -55,10 +57,12 @@ fun KoydenNavHost(modifier: Modifier = Modifier) {
         composable(HOME_ROUTE) {
             HomePlaceholder(
                 onOpenCatalog = { navController.navigate(CatalogRoutes.LIST) },
+                onOpenSeller = { navController.navigate(SellerRoutes.HOME) },
                 onOpenProfile = { navController.navigate(ProfileRoutes.ROUTE) },
             )
         }
         catalogGraph(navController = navController)
+        sellerGraph(navController = navController)
         profileScreen(
             onSignedOut = { navController.returnToAuth() },
         )
@@ -76,6 +80,7 @@ private fun NavController.returnToAuth() {
 @Composable
 private fun HomePlaceholder(
     onOpenCatalog: () -> Unit,
+    onOpenSeller: () -> Unit,
     onOpenProfile: () -> Unit,
 ) {
     val spacing = LocalSpacing.current
@@ -98,6 +103,12 @@ private fun HomePlaceholder(
             text = "Ürünleri keşfet",
             onClick = onOpenCatalog,
             modifier = Modifier.fillMaxWidth().padding(top = spacing.md),
+        )
+        KoydenButton(
+            text = "Satıcı paneli",
+            onClick = onOpenSeller,
+            variant = KoydenButtonVariant.Secondary,
+            modifier = Modifier.fillMaxWidth(),
         )
         KoydenButton(
             text = "Profilim",

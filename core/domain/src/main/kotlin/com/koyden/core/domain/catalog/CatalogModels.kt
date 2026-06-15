@@ -32,3 +32,14 @@ data class ProductQuery(
     val categoryId: String? = null,
     val search: String? = null,
 )
+
+/** Mağaza (satıcıya bağlı). Public alanlar paylaşılan zon. */
+data class Store(
+    val id: String,
+    val name: String,
+    val slug: String,
+    val description: String? = null,
+    val city: String? = null,
+    val logoUrl: String? = null,
+    val isActive: Boolean = true,
+)
