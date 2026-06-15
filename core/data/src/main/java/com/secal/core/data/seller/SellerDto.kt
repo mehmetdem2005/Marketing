@@ -11,6 +11,7 @@ internal data class StoreInsertDto(
     val slug: String,
     val city: String? = null,
     val description: String? = null,
+    @SerialName("business_registration_no") val businessRegistrationNo: String? = null,
 )
 
 @Serializable
@@ -22,6 +23,7 @@ internal data class StoreRowDto(
     val city: String? = null,
     @SerialName("logo_url") val logoUrl: String? = null,
     @SerialName("is_active") val isActive: Boolean = true,
+    @SerialName("business_registration_no") val businessRegistrationNo: String? = null,
 )
 
 @Serializable
@@ -52,4 +54,5 @@ internal fun StoreRowDto.toDomain(): Store = Store(
     city = city,
     logoUrl = logoUrl,
     isActive = isActive,
+    businessRegistrationNo = businessRegistrationNo,
 )

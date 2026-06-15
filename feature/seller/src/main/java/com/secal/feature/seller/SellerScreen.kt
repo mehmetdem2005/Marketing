@@ -15,11 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.secal.core.domain.catalog.Product
+import com.secal.feature.seller.R
 import com.secal.designsystem.component.SecalButton
 import com.secal.designsystem.component.SecalCard
 import com.secal.designsystem.component.SecalTextField
@@ -62,8 +64,8 @@ private fun CenterLoader() {
 private fun ErrorRetry(onRetry: () -> Unit) {
     val spacing = LocalSpacing.current
     Column(verticalArrangement = Arrangement.spacedBy(spacing.sm)) {
-        Text("Bir şeyler ters gitti.", style = MaterialTheme.typography.bodyLarge)
-        SecalButton(text = "Tekrar dene", onClick = onRetry)
+        Text(stringResource(R.string.seller_error_generic), style = MaterialTheme.typography.bodyLarge)
+        SecalButton(text = stringResource(R.string.action_retry), onClick = onRetry)
     }
 }
 
@@ -71,33 +73,40 @@ private fun ErrorRetry(onRetry: () -> Unit) {
 private fun StoreSetupForm(state: SellerUiState, viewModel: SellerViewModel) {
     val spacing = LocalSpacing.current
     Column(verticalArrangement = Arrangement.spacedBy(spacing.sm)) {
-        Text("Mağazanı oluştur", style = MaterialTheme.typography.titleLarge)
+        Text(stringResource(R.string.seller_create_store_title), style = MaterialTheme.typography.titleLarge)
         Text(
-            "Satış yapmak için önce mağazanı aç.",
+            stringResource(R.string.seller_create_store_subtitle),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         SecalTextField(
             value = state.name,
             onValueChange = viewModel::onNameChange,
-            label = "Mağaza adı",
+            label = stringResource(R.string.seller_store_name),
             modifier = Modifier.fillMaxWidth(),
         )
         SecalTextField(
             value = state.city,
             onValueChange = viewModel::onCityChange,
-            label = "Şehir",
+            label = stringResource(R.string.seller_city),
+            modifier = Modifier.fillMaxWidth(),
+        )
+        SecalTextField(
+            value = state.businessRegNo,
+            onValueChange = viewModel::onBusinessRegNoChange,
+            label = stringResource(R.string.seller_business_reg_no),
+            supportingText = stringResource(R.string.seller_business_reg_no_hint),
             modifier = Modifier.fillMaxWidth(),
         )
         SecalTextField(
             value = state.description,
             onValueChange = viewModel::onDescriptionChange,
-            label = "Açıklama",
+            label = stringResource(R.string.field_description),
             singleLine = false,
             modifier = Modifier.fillMaxWidth(),
         )
         SecalButton(
-            text = "Mağazayı oluştur",
+            text = stringResource(R.string.seller_create_store_button),
             onClick = viewModel::createStore,
             enabled = state.name.isNotBlank() && !state.saving,
             modifier = Modifier.fillMaxWidth().padding(top = spacing.sm),
@@ -111,13 +120,13 @@ private fun ProductList(products: List<Product>, storeName: String, onAddProduct
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(spacing.sm)) {
         Text(storeName, style = MaterialTheme.typography.titleLarge)
         SecalButton(
-            text = "+ Ürün ekle",
+            text = stringResource(R.string.seller_add_product),
             onClick = onAddProduct,
             modifier = Modifier.fillMaxWidth(),
         )
         if (products.isEmpty()) {
             Text(
-                "Henüz ürün yok. İlk ürününü ekle.",
+                stringResource(R.string.seller_no_products),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -129,7 +138,7 @@ private fun ProductList(products: List<Product>, storeName: String, onAddProduct
                             Text(product.name, style = MaterialTheme.typography.titleMedium)
                             PriceTag(amountMinor = product.priceMinor, currencyCode = product.currency)
                             Text(
-                                "Stok: ${product.stock}",
+                                stringResource(R.string.seller_stock_format, product.stock),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )

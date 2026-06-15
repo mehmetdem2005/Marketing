@@ -27,6 +27,7 @@ data class SellerUiState(
     val name: String = "",
     val city: String = "",
     val description: String = "",
+    val businessRegNo: String = "",
 )
 
 @HiltViewModel
@@ -73,13 +74,21 @@ class SellerViewModel @Inject constructor(
     fun onNameChange(value: String) = _state.update { it.copy(name = value) }
     fun onCityChange(value: String) = _state.update { it.copy(city = value) }
     fun onDescriptionChange(value: String) = _state.update { it.copy(description = value) }
+    fun onBusinessRegNoChange(value: String) = _state.update { it.copy(businessRegNo = value) }
 
     fun createStore() {
         val form = _state.value
         if (form.name.isBlank() || form.saving) return
         _state.update { it.copy(saving = true, error = null) }
         viewModelScope.launch {
-            when (val result = seller.createStore(form.name, form.city, form.description)) {
+            when (
+                val result = seller.createStore(
+                    name = form.name,
+                    city = form.city,
+                    description = form.description,
+                    businessRegistrationNo = form.businessRegNo,
+                )
+            ) {
                 is DataResult.Success ->
                     _state.update {
                         it.copy(saving = false, phase = SellerPhase.Ready, store = result.data)

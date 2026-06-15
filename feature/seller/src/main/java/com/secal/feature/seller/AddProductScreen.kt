@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -33,6 +34,7 @@ import com.secal.designsystem.component.SecalButton
 import com.secal.designsystem.component.SecalButtonVariant
 import com.secal.designsystem.component.SecalTextField
 import com.secal.designsystem.theme.LocalSpacing
+import com.secal.feature.seller.R
 
 /** Ürün ekleme formu: alanlar + kategori seçimi + görsel yükleme (Storage). */
 @Composable
@@ -66,7 +68,7 @@ fun AddProductScreen(
             .padding(spacing.md),
         verticalArrangement = Arrangement.spacedBy(spacing.sm),
     ) {
-        Text("Yeni ürün", style = MaterialTheme.typography.titleLarge)
+        Text(stringResource(R.string.seller_new_product), style = MaterialTheme.typography.titleLarge)
 
         ImagePicker(
             imageUrl = state.imageUrl,
@@ -77,27 +79,27 @@ fun AddProductScreen(
         SecalTextField(
             value = state.name,
             onValueChange = viewModel::onNameChange,
-            label = "Ürün adı",
+            label = stringResource(R.string.seller_product_name),
             modifier = Modifier.fillMaxWidth(),
         )
         SecalTextField(
             value = state.price,
             onValueChange = viewModel::onPriceChange,
-            label = "Fiyat (₺)",
+            label = stringResource(R.string.seller_price),
             keyboardType = KeyboardType.Decimal,
             modifier = Modifier.fillMaxWidth(),
         )
         SecalTextField(
             value = state.stock,
             onValueChange = viewModel::onStockChange,
-            label = "Stok adedi",
+            label = stringResource(R.string.seller_stock_qty),
             keyboardType = KeyboardType.Number,
             modifier = Modifier.fillMaxWidth(),
         )
         SecalTextField(
             value = state.unit,
             onValueChange = viewModel::onUnitChange,
-            label = "Birim (kg, adet, litre…)",
+            label = stringResource(R.string.seller_unit),
             modifier = Modifier.fillMaxWidth(),
         )
         CategoryPicker(
@@ -107,12 +109,12 @@ fun AddProductScreen(
         SecalTextField(
             value = state.description,
             onValueChange = viewModel::onDescriptionChange,
-            label = "Açıklama",
+            label = stringResource(R.string.field_description),
             singleLine = false,
             modifier = Modifier.fillMaxWidth(),
         )
         SecalButton(
-            text = if (state.saving) "Kaydediliyor…" else "Ürünü yayınla",
+            text = if (state.saving) stringResource(R.string.seller_publishing) else stringResource(R.string.seller_publish),
             onClick = viewModel::createProduct,
             enabled = state.canSave,
             modifier = Modifier.fillMaxWidth().padding(top = spacing.sm),
@@ -127,7 +129,7 @@ private fun ImagePicker(imageUrl: String?, uploading: Boolean, onPick: () -> Uni
         if (imageUrl != null) {
             AsyncImage(
                 model = imageUrl,
-                contentDescription = "Ürün görseli",
+                contentDescription = stringResource(R.string.seller_product_image_cd),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -137,9 +139,9 @@ private fun ImagePicker(imageUrl: String?, uploading: Boolean, onPick: () -> Uni
         }
         SecalButton(
             text = when {
-                uploading -> "Yükleniyor…"
-                imageUrl != null -> "Görseli değiştir"
-                else -> "Görsel ekle"
+                uploading -> stringResource(R.string.seller_image_uploading)
+                imageUrl != null -> stringResource(R.string.seller_image_change)
+                else -> stringResource(R.string.seller_image_add)
             },
             onClick = onPick,
             variant = SecalButtonVariant.Secondary,

@@ -41,6 +41,7 @@ class SupabaseSellerRepository @Inject constructor(
         name: String,
         city: String?,
         description: String?,
+        businessRegistrationNo: String?,
     ): DataResult<Store> = runResult {
         val payload = StoreInsertDto(
             ownerId = currentUserId(),
@@ -48,6 +49,7 @@ class SupabaseSellerRepository @Inject constructor(
             slug = slugify(name),
             city = city?.trim()?.ifBlank { null },
             description = description?.trim()?.ifBlank { null },
+            businessRegistrationNo = businessRegistrationNo?.trim()?.ifBlank { null },
         )
         db.from(STORES).insert(payload) { select() }.decodeSingle<StoreRowDto>().toDomain()
     }

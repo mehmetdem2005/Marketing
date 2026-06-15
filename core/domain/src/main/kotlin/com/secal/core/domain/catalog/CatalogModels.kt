@@ -42,4 +42,6 @@ data class Store(
     val city: String? = null,
     val logoUrl: String? = null,
     val isActive: Boolean = true,
+    /** Gıda İşletme Kayıt/Onay Belge No (5996 sK uyum — esnaf satıcı taşır). */
+    val businessRegistrationNo: String? = null,
 )

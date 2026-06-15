@@ -24,8 +24,13 @@ interface SellerRepository {
     /** Aktif kullanıcının mağazası (yoksa null). */
     suspend fun getMyStore(): DataResult<Store?>
 
-    /** Mağaza oluştur (owner = aktif kullanıcı). */
-    suspend fun createStore(name: String, city: String?, description: String?): DataResult<Store>
+    /** Mağaza oluştur (owner = aktif kullanıcı). [businessRegistrationNo] gıda işletme kayıt belge no. */
+    suspend fun createStore(
+        name: String,
+        city: String?,
+        description: String?,
+        businessRegistrationNo: String?,
+    ): DataResult<Store>
 
     /** Mağazanın ürünleri (satıcı görünümü — aktif/pasif tümü). */
     suspend fun getMyProducts(storeId: String): DataResult<List<Product>>

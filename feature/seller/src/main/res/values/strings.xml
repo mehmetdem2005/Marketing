@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- i18n: Satıcı paneli metinleri. Tümü dinamik; çoklu dil için values-<lang>/ eklenir. -->
+<resources>
+    <!-- Ortak -->
+    <string name="action_retry">Tekrar dene</string>
+    <string name="field_description">Açıklama</string>
+    <string name="seller_error_generic">Bir şeyler ters gitti.</string>
+
+    <!-- Mağaza kurulumu -->
+    <string name="seller_create_store_title">Mağazanı oluştur</string>
+    <string name="seller_create_store_subtitle">Satış yapmak için önce mağazanı aç.</string>
+    <string name="seller_store_name">Mağaza adı</string>
+    <string name="seller_city">Şehir</string>
+    <string name="seller_business_reg_no">Gıda İşletme Kayıt Belge No</string>
+    <string name="seller_business_reg_no_hint">Esnaf/işletme belgesi (gıda uyumu — varsa girin)</string>
+    <string name="seller_create_store_button">Mağazayı oluştur</string>
+
+    <!-- Ürün listesi -->
+    <string name="seller_add_product">+ Ürün ekle</string>
+    <string name="seller_no_products">Henüz ürün yok. İlk ürününü ekle.</string>
+    <string name="seller_stock_format">Stok: %1$d</string>
+
+    <!-- Ürün ekleme -->
+    <string name="seller_new_product">Yeni ürün</string>
+    <string name="seller_product_name">Ürün adı</string>
+    <string name="seller_price">Fiyat (₺)</string>
+    <string name="seller_stock_qty">Stok adedi</string>
+    <string name="seller_unit">Birim (kg, adet, litre…)</string>
+    <string name="seller_image_add">Görsel ekle</string>
+    <string name="seller_image_change">Görseli değiştir</string>
+    <string name="seller_image_uploading">Yükleniyor…</string>
+    <string name="seller_product_image_cd">Ürün görseli</string>
+    <string name="seller_publish">Ürünü yayınla</string>
+    <string name="seller_publishing">Kaydediliyor…</string>
+</resources>
