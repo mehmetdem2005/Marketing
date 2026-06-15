@@ -18,7 +18,8 @@ updated: 2026-06-15
 - [[Key Decisions]] · [[Patterns]] · [[Gotchas]] · [[Skills]]
 
 ## Çekirdek notlar
-- [[mimari-karar-gunlugu]] — **ADR karar günlüğü** (ADR-001..012). Her mimari karar burada.
+- [[yol-haritasi]] — **Faz faz mimari yol haritası** (Faz 0-11; Faz 3 = isim & marka).
+- [[mimari-karar-gunlugu]] — **ADR karar günlüğü** (ADR-001..013). Her mimari karar burada.
 - [[EA-TOGAF-mimari]] — Kurumsal mimari (TOGAF ADM, kapasiteler, veri zonları, bileşenler).
 - [[altyapi-kaynaklar]] — Canlı altyapı & sır yönetimi (Supabase projesi, CI, Render durumu).
 - [[kurumsal-surec-ve-calisma-standardi]] — Çalışma/süreç standardı (kalite kapıları, akış).

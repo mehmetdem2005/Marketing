@@ -16,7 +16,7 @@ iki-taraflı pazaryeri. **Trendyol kalitesi** çıta. Native Android (Jetpack Co
 admin dahil her şey mobil uygulamada.
 
 ## Güncel odak
-- Pazaryeri çekirdeğini faz faz tamamlamak: ✅ Auth ✅ Profil ✅ Katalog/keşif → **sıradaki: Sepet & Sipariş**.
+- Tam faz planı: [[yol-haritasi]] (Faz 0-11). ✅ Auth ✅ Profil ✅ Katalog → sıradaki: **Faz 3 İsim & Marka** ve/veya **Faz 4 Satıcı + Faz 5 Sepet/Sipariş** (MVP çekirdeği).
 - Her dilim: hexagonal + 4-durum + RLS + Trendyol kalite; CI yeşil → main merge → deploy.
 
 ## Hedefler
