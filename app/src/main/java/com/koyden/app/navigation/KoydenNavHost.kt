@@ -16,9 +16,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.koyden.designsystem.component.KoydenButton
+import com.koyden.designsystem.component.KoydenButtonVariant
 import com.koyden.designsystem.theme.LocalSpacing
 import com.koyden.feature.auth.navigation.AuthRoutes
 import com.koyden.feature.auth.navigation.authGraph
+import com.koyden.feature.catalog.navigation.CatalogRoutes
+import com.koyden.feature.catalog.navigation.catalogGraph
 import com.koyden.feature.profile.navigation.ProfileRoutes
 import com.koyden.feature.profile.navigation.profileScreen
 
@@ -51,9 +54,11 @@ fun KoydenNavHost(modifier: Modifier = Modifier) {
         )
         composable(HOME_ROUTE) {
             HomePlaceholder(
+                onOpenCatalog = { navController.navigate(CatalogRoutes.LIST) },
                 onOpenProfile = { navController.navigate(ProfileRoutes.ROUTE) },
             )
         }
+        catalogGraph(navController = navController)
         profileScreen(
             onSignedOut = { navController.returnToAuth() },
         )
@@ -69,7 +74,10 @@ private fun NavController.returnToAuth() {
 }
 
 @Composable
-private fun HomePlaceholder(onOpenProfile: () -> Unit) {
+private fun HomePlaceholder(
+    onOpenCatalog: () -> Unit,
+    onOpenProfile: () -> Unit,
+) {
     val spacing = LocalSpacing.current
     Column(
         modifier = Modifier
@@ -83,13 +91,19 @@ private fun HomePlaceholder(onOpenProfile: () -> Unit) {
             style = MaterialTheme.typography.headlineMedium,
         )
         Text(
-            text = "Köyden doğal ürünler pazaryeri — yakında.",
+            text = "Köyün doğal ürünleri, üreticiden kapına.",
             style = MaterialTheme.typography.bodyMedium,
+        )
+        KoydenButton(
+            text = "Ürünleri keşfet",
+            onClick = onOpenCatalog,
+            modifier = Modifier.fillMaxWidth().padding(top = spacing.md),
         )
         KoydenButton(
             text = "Profilim",
             onClick = onOpenProfile,
-            modifier = Modifier.fillMaxWidth().padding(top = spacing.md),
+            variant = KoydenButtonVariant.Secondary,
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }

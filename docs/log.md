@@ -16,3 +16,6 @@ Format: `## [YYYY-MM-DD] aksiyon | açıklama`.
 ## [2026-06-15] feat | Faz 2 Profil + RLS inşa edildi (ADR-012); Android CI yeşil (ff99638).
 ## [2026-06-15] ci | Supabase URL/anon CI build'ine bağlandı; BuildConfig .trim() (unclosed-string fix).
 ## [2026-06-15] policy | Kullanıcı kararı: bundan sonra yeşil dal her zaman main'e merge edilir (otomatik deploy). Kalite çıtası: Trendyol.
+## [2026-06-15] infra | main dalı yeşil HEAD'den oluşturuldu (repoda yoktu); merge iş akışı kuruldu.
+## [2026-06-15] tooling | obsidian-second-brain skill'i fiilen yüklendi/uygulanıyor; qmd kuruldu+indeksli (BM25+vektör).
+## [2026-06-15] feat | Katalog dikey dilimi (ADR-013): 0002_catalog migration (marketing-2) + Android domain/data/UI (feature:catalog). Migration canlıya CI yeşil sonrası uygulanacak.

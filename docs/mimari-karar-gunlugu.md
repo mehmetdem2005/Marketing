@@ -168,5 +168,26 @@
 
 ---
 
-**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..012 kilitlenen
+## ADR-013 — Faz 2: Katalog/keşif (çok-repolu dikey dilim, public read)
+- **Durum:** Kabul · TOGAF Phase C/D · ISO 25010/25012 · kalite çıtası: Trendyol
+- **Bağlam:** Pazaryeri çekirdeği — alıcının ürünleri keşfetmesi/araması/incelemesi. Paylaşılan
+  (public) veri zonu; satıcı kendi mağaza/ürününü yazar.
+- **Karar:**
+  - **Şema (`marketing-2/0002_catalog.sql`):** stores, categories(ağaç), products, product_images.
+    Fiyat `price_minor` (kuruş, bigint — kayan nokta yok). `pg_trgm` ile isim/açıklama arama indeksi.
+    RLS: public read / satıcı (mağaza sahibi) write; `owns_store()` helper. `product-images` Storage
+    bucket (public read, authenticated upload). Köy ürün kategorileri seed.
+  - **Android (hexagonal):** domain (Category/Product/ProductQuery + CatalogRepository +
+    Get{Categories,Products,Product}UseCase) → data (SupabaseCatalogRepository; embedded select ile
+    mağaza adı + görseller tek istekte — N+1 yok) → feature:catalog (CatalogViewModel + CatalogScreen
+    [arama + kategori filtre + 2-sütun grid, Coil görsel] + ProductDetail). 4-durum + reduce-motion.
+  - **Para birimi:** kuruş tamsayı; UI'da PriceTag yerelleştirir (tr-TR).
+- **Sonuçlar:** Alıcı home→katalog→ürün detay akışı. Sepet/sipariş sonraki dilim. Migration canlıya
+  CI yeşil sonrası uygulanır (kullanıcı onayı: "kod yeşil olunca uygula").
+- **Değerlendirilen alternatifler:** Fiyatı decimal/float tutmak (reddedildi: para bütünlüğü);
+  görselleri ayrı istekle çekmek (reddedildi: N+1 — embedded select tercih edildi).
+
+---
+
+**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..013 kilitlenen
 kararları belgeler · supersedes mekanizması tanımlı (henüz supersede edilen karar yok).
