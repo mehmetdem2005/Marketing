@@ -42,3 +42,8 @@ kullan (ör. TopAppBar geri ikonu) ya da imzadan + çağıran graf'tan kaldır. 
 `postgrest.rpc("fn", parameters)` overload'u `JsonObject` bekler — keyfi `@Serializable` veri sınıfı
 DEĞİL ("None of the following candidates is applicable"). Çözüm: `buildJsonObject { put("p_x", v) }`
 ile parametre kur. RPC argüman adları SQL fonksiyon imzasıyla birebir (`p_product_id`, `p_qty`).
+
+## Compose Modifier.padding(innerPadding) import'u (Scaffold)
+Scaffold content lambda'sında `Modifier.padding(innerPadding)` → `androidx.compose.foundation.layout.padding`
+import şart; yoksa "Unresolved reference 'padding'" (NavHost-only dosyalarda foundation.layout import'u
+unutulur). Ayrıca Logout/ArrowBack vb. yön-duyarlı ikonlar `Icons.AutoMirrored.Filled.*` (eski Filled.* deprecated).

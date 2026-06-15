@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Storefront
 import androidx.compose.material3.HorizontalDivider
@@ -45,7 +45,7 @@ fun AccountScreen(
         AccountRow(icon = Icons.Outlined.Storefront, label = "Satıcı paneli", onClick = onSeller)
         HorizontalDivider()
         AccountRow(
-            icon = Icons.Filled.Logout,
+            icon = Icons.AutoMirrored.Filled.Logout,
             label = "Çıkış yap",
             onClick = onSignOut,
             tint = MaterialTheme.colorScheme.error,
