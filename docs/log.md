@@ -25,3 +25,4 @@ Format: `## [YYYY-MM-DD] aksiyon | açıklama`.
 ## [2026-06-15] brand | Faz 3 başladı: isim adayları + matris + domain DNS taraması → [[isim-adaylari]]. Karar kullanıcıda.
 ## [2026-06-15] brand | Kullanıcı adayları beğenmedi → harici LLM için isim-bulma promptu hazırlandı ([[isim-promptu]]). İsim gelince müsaitlik + ADR-014 + rename.
 ## [2026-06-15] feat | Faz 4 Satıcı (ADR-015): install(Storage) + SellerRepository/data + feature:seller (mağaza kur, ürün ekle, görsel upload PickVisualMedia). Yeni migration gerekmedi (RLS owns_store mevcut).
+## [2026-06-15] merge | Faz 4 Satıcı yeşil (9c0ebd5) → main'e merge. Satıcı uçtan uca: mağaza aç + görselli ürün ekle → katalogda görünür.
