@@ -81,23 +81,7 @@ fun SecalNavHost(modifier: Modifier = Modifier) {
         modifier = modifier,
         bottomBar = {
             if (showBottomBar) {
-                NavigationBar {
-                    TOP_TABS.forEach { tab ->
-                        val selected = currentRoute == tab.route
-                        val label = stringResource(tab.label)
-                        NavigationBarItem(
-                            selected = selected,
-                            onClick = { navController.navigateToTab(tab.route) },
-                            icon = {
-                                Icon(
-                                    if (selected) tab.selectedIcon else tab.unselectedIcon,
-                                    contentDescription = label,
-                                )
-                            },
-                            label = { Text(label) },
-                        )
-                    }
-                }
+                SecalBottomBar(currentRoute = currentRoute, onTabClick = navController::navigateToTab)
             }
         },
     ) { innerPadding ->
@@ -154,6 +138,28 @@ fun SecalNavHost(modifier: Modifier = Modifier) {
             orderGraph(navController = navController)
             sellerGraph(navController = navController)
             profileScreen(onSignedOut = { navController.returnToAuth() })
+        }
+    }
+}
+
+/** Alt menü (M3 NavigationBar): 4 sekme, aktif pill göstergesi + dolu/outline ikon. */
+@Composable
+private fun SecalBottomBar(currentRoute: String?, onTabClick: (String) -> Unit) {
+    NavigationBar {
+        TOP_TABS.forEach { tab ->
+            val selected = currentRoute == tab.route
+            val label = stringResource(tab.label)
+            NavigationBarItem(
+                selected = selected,
+                onClick = { onTabClick(tab.route) },
+                icon = {
+                    Icon(
+                        if (selected) tab.selectedIcon else tab.unselectedIcon,
+                        contentDescription = label,
+                    )
+                },
+                label = { Text(label) },
+            )
         }
     }
 }
