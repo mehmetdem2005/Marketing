@@ -21,6 +21,7 @@
 - ADR-014 — Marka adı: **SeçAl** + tam paket rename (com.koyden → com.secal)
 - ADR-015 — Faz 4: Satıcı (mağaza & ürün yönetimi + görsel upload)
 - ADR-016 — Faz 5a: Sepet (cart_items + atomik add_to_cart RPC, PII/RLS)
+- ADR-017 — UI: Trendyol-kalıbı navigasyon (M3 alt menü + zengin Anasayfa + Hesabım)
 
 ---
 
@@ -251,5 +252,26 @@
 
 ---
 
-**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..016 kilitlenen
+## ADR-017 — UI: Trendyol-kalıbı navigasyon (alt menü + Anasayfa + Hesabım)
+- **Durum:** Kabul · TOGAF Phase C (Application) · ISO 9241 + 25010 Interaction Capability ·
+  Değişiklik sınıfı: **Yeniden-mimari** (navigasyon iskeleti). Tetik: kullanıcı geri bildirimi
+  ("anasayfa yok, menüler yok, berbat — Trendyol gibi yap").
+- **Bağlam:** Giriş sonrası ekran 4 düğmelik placeholder'dı; gerçek anasayfa/gezinme yoktu.
+- **Karar:**
+  - **M3 NavigationBar (alt menü)** — 4 sekme: Anasayfa · Keşfet (katalog) · Sepet · Hesabım.
+    Çapa = Anasayfa; `popUpTo(home){saveState}` + restoreState ile sığ yığın & sekme durumu korunur.
+    Derin ekranlar (ürün detay, satıcı, profil) çubuğu gizler.
+  - **Anasayfa** (`feature:home`): arama çubuğu (→Keşfet) + marka banner + kategori şeridi (avatar) +
+    "Öne çıkan ürünler" yatay şeridi (boşsa satıcıya yönlendiren CTA). Atomic Design, 8pt grid,
+    ProductCard yeniden kullanımı.
+  - **Hesabım** (`feature:home`): menü satırları (Profilim / Satıcı paneli / Çıkış) — liste kalıbı.
+  - Çapraz-feature bağımlılığı yok: tüm geçişler app `SecalNavHost`'tan callback ile bağlanır.
+- **Sonuçlar:** Trendyol benzeri gezinme; placeholder kaldırıldı (supersedes eski HomePlaceholder).
+  Kategori tıklaması şimdilik Keşfet'e götürür (filtre arg'ı sonraki iyileştirme).
+- **Değerlendirilen alternatifler:** Navigation Drawer (reddedildi: mobil pazaryeri için alt menü
+  standart) · tek ekran + buton listesi (reddedildi: kullanıcı reddetti).
+
+---
+
+**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..017 kilitlenen
 kararları belgeler (ADR-014 = marka adı **SeçAl**) · supersedes mekanizması tanımlı.
