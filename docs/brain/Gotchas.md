@@ -32,3 +32,8 @@ Kapsam: kt/kts/xml/md/pro/yml/toml/sh/sample (yalnız koyden geçen dosyaları h
 `@style/Theme.X`, `@color/x_*`, pref dosya adları (`x_secure_prefs`). Doğrulama: işlem sonu
 `grep -rli koyden` + `grep -rl Köyden` = 0 olmalı. Kotlin'de dosya adı ≠ sınıf adı derlemeyi
 bozmaz ama temizlik için dosyalar da yeniden adlandırılır.
+
+## detekt UnusedParameter — refactor sonrası nav callback'leri
+Bir composable'ı yeniden yazarken eski bir callback (ör. `onBack`) artık çağrılmıyorsa detekt
+`UnusedParameter` ile turu kırar (CI'da `:feature:X:detekt FAILED`). Çözüm: parametreyi gerçekten
+kullan (ör. TopAppBar geri ikonu) ya da imzadan + çağıran graf'tan kaldır. Boş bırakma.
