@@ -2,7 +2,9 @@ package com.koyden.core.data.di
 
 import com.koyden.core.data.auth.SupabaseAuthRepository
 import com.koyden.core.data.auth.SupabaseConfig
+import com.koyden.core.data.profile.SupabaseProfileRepository
 import com.koyden.core.domain.auth.AuthRepository
+import com.koyden.core.domain.profile.ProfileRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -42,4 +44,8 @@ abstract class AuthBindingModule {
     @Binds
     @Singleton
     abstract fun bindAuthRepository(impl: SupabaseAuthRepository): AuthRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindProfileRepository(impl: SupabaseProfileRepository): ProfileRepository
 }

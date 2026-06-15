@@ -146,5 +146,27 @@
 
 ---
 
-**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..011 kilitlenen
+## ADR-012 — Faz 2: Profil özelliği (hexagonal dikey dilim, RLS self-erişim)
+- **Durum:** Kabul · TOGAF Phase B/C/D · ISO 25010/25012/29148
+- **Bağlam:** Auth tamamlandı (ADR-004). İlk kimlik-gerektiren dikey dilim olarak profil
+  görüntüleme/düzenleme gerekiyor; `profiles` tablosu (PII) + RLS self read/update zaten mevcut.
+- **Karar:**
+  - **Domain:** `Profile`/`UserRole` saf modeller + `ProfileRepository` portu +
+    `GetMyProfile`/`UpdateProfile` use-case'leri. Ad doğrulaması (≤120) domain'de; rol/id
+    istemciden DEĞİŞTİRİLEMEZ (yalnız ad/telefon).
+  - **Data:** `SupabaseProfileRepository` (Postgrest + RLS); kullanıcı id/e-posta auth oturumundan.
+    Okuma/yazma için ayrı `@Serializable` DTO; güncel sonra taze satır okunur (tek doğruluk = DB).
+  - **UI:** `feature:profile` — `ProfileViewModel` (tek-yönlü `UiState` + kaydet/çıkış alt-durumları)
+    + `ProfileScreen` (4-durum scaffold, tasarım sistemi bileşenleri, reduce-motion'a saygılı geçişler).
+    NavHost: home→profil; profilden çıkış→auth (kimlik grafları temizlenir).
+  - **Hilt:** `feature:profile` da KAPT'a alındı (ADR-? KAPT geçişiyle tutarlı; KSP component üretmiyordu).
+- **Sonuçlar:** Auth akışı uçtan uca tamamlandı (giriş→home→profil→çıkış). Pazaryeri çekirdeği
+  (katalog/sipariş) sonraki dilimlerde aynı hexagonal kalıpla eklenecek.
+- **Değerlendirilen alternatifler:** Profili Edge Function arkasına koymak (reddedildi: RLS self-erişim
+  yeterli, ekstra tier gereksiz); ekran-state'i tek `UiState`e gömmek (reddedildi: kaydet alt-durumu
+  içerik görünürken inline gösterilmeli — progressive disclosure).
+
+---
+
+**Standartlar:** TOGAF Phase H ADR governance · 42010 karar kaydı · ADR-001..012 kilitlenen
 kararları belgeler · supersedes mekanizması tanımlı (henüz supersede edilen karar yok).
