@@ -12,6 +12,11 @@ updated: 2026-06-15
 > bu klasörü aç → tüm kararlar/mimari notları wikilink'lerle gezilir. Kaynak: GitHub
 > `mehmetdem2005/Marketing` · dal `claude/village-products-marketplace-c08a30` · `docs/`.
 
+## Kalıcı hafıza — brain/ (obsidian-mind)
+- [[Memories]] — hafıza indeksi (oturumlar arası bağlam)
+- [[North Star]] — vizyon & güncel odak (oturum başında oku)
+- [[Key Decisions]] · [[Patterns]] · [[Gotchas]] · [[Skills]]
+
 ## Çekirdek notlar
 - [[mimari-karar-gunlugu]] — **ADR karar günlüğü** (ADR-001..012). Her mimari karar burada.
 - [[EA-TOGAF-mimari]] — Kurumsal mimari (TOGAF ADM, kapasiteler, veri zonları, bileşenler).
