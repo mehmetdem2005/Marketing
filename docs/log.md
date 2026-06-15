@@ -23,3 +23,4 @@ Format: `## [YYYY-MM-DD] aksiyon | açıklama`.
 ## [2026-06-15] merge | Katalog yeşil (eff9c5c) → main'e merge (665377b). main + claude dalı senkron.
 ## [2026-06-15] plan | Faz faz mimari yol haritası ([[yol-haritasi]]) çıkarıldı: Faz 0-11; Faz 3 = İsim & Marka (isime ayrılmış faz). index/North Star bağlandı.
 ## [2026-06-15] brand | Faz 3 başladı: isim adayları + matris + domain DNS taraması → [[isim-adaylari]]. Karar kullanıcıda.
+## [2026-06-15] brand | Kullanıcı adayları beğenmedi → harici LLM için isim-bulma promptu hazırlandı ([[isim-promptu]]). İsim gelince müsaitlik + ADR-014 + rename.
