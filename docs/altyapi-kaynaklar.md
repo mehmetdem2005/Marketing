@@ -38,12 +38,14 @@ durduğu yazılır. Yeni kaynak/karar → burayı güncelle + ADR yaz (self-rewr
   yalnız **okuma** yapıldı; hiçbir Whenly kaynağı değiştirilmedi.
 - Kural: hiçbir sır **değeri** git'e girmez (gitleaks kapısı + bu disiplin).
 
-## Durum (2026-06-14)
-- **CI YEŞİL** ✅ (`android-ci.yml`): gitleaks + detekt + lint + test + assembleDebug geçiyor.
-  Faz 1 (tasarım sistemi + Supabase Auth) derleniyor.
-- **Supabase bağlı:** `KOYDEN_SUPABASE_URL` + `KOYDEN_SUPABASE_ANON_KEY` GitHub Actions
-  **variable** olarak tanımlı (anon/URL publishable; gerçek sır değil) → CI build'inde BuildConfig'e
-  geçiyor. service_role yalnız container/.secrets (sunucu/Edge için).
+## Durum (2026-06-15)
+- **CI YEŞİL** ✅ (`android-ci.yml`, commit `ff99638`): gitleaks + detekt + lint + test +
+  assembleDebug. **Faz 1** (tasarım sistemi + Supabase Auth) + **Faz 2** (Profil + RLS) derleniyor.
+- **Supabase bağlı & çalışıyor:** `KOYDEN_SUPABASE_URL` + `KOYDEN_SUPABASE_ANON_KEY` GitHub Actions
+  **variable** (anon/URL publishable) → CI build'inde BuildConfig'e geçiyor. service_role yalnız
+  container/.secrets. Not: build.gradle değerleri `.trim()` eder (variable'da kaçak newline
+  "unclosed string literal"e yol açmıştı — çözüldü).
+- **Auth akışı uçtan uca:** giriş/kayıt (e-posta + Google) → home → profil (görüntüle/düzenle, RLS) → çıkış.
 
 ## Obsidian vault & yerel arama (qmd)
 - **`docs/` artık bir Obsidian vault'tur** (`.obsidian/app.json` + [[index]] MOC + [[_CLAUDE]]
